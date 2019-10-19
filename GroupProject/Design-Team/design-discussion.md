@@ -10,11 +10,15 @@
 
 ## Design 2 (Nana Kodjo Acquah):
 
+![](images/Kodjo.png)
+
 ### Pros:
 
 ### Cons:
 
 ## Design 3 (Torendra Rasik):
+
+![](images/Torendra.png)
 
 ### Pros:
 
@@ -22,11 +26,15 @@
 
 ## Design 4 (Jeffrey Kim):
 
+![](images/Jeffrey.png)
+
 ### Pros:
 
 ### Cons:
 
 ## Design 5 (Jonas Improgo):
+
+![](images/Jonas.png)
 
 ### Pros:
 
