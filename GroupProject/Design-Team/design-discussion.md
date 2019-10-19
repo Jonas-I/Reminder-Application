@@ -2,7 +2,7 @@
 
 ## Design 1 (Daniel Rand):
 
-<img src="GroupProject/Design-Individual/danielrand/design.pdf" alt="some text"  width="4200" height="4200">
+<img src="../Design-Individual/danielrand/design.pdf" alt="some text"  width="4200" height="4200">
 
 ### Pros:
 
