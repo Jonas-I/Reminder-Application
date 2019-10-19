@@ -2,6 +2,8 @@
 
 ## Design 1 (Daniel Rand):
 
+![](images/Daniel.png)
+
 ### Pros:
 
 ### Cons:
