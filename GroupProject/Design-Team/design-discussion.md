@@ -2,7 +2,11 @@
 
 ## Design 1 (Daniel Rand):
 
-<img src="370Fall19Team4b/GroupProject/Design-Individual/danielrand/design.pdf" alt="some text"  width="4200" height="4200">
+<object data="370Fall19Team4b/GroupProject/Design-Individual/danielrand/design.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="370Fall19Team4b/GroupProject/Design-Individual/danielrand/design.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="370Fall19Team4b/GroupProject/Design-Individual/danielrand/design.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
 
 ### Pros:
 
