@@ -7,11 +7,15 @@
 ### Pros:
     1. Very detailed oriented in a way that all the method names and attributes are clear/understandable. -T.R
     2. The relationships between (User and Reminder) and (Reminder and ReminderList) justify the requirements between them. -T.R
+    3. Straightforward and simple design that consists of several methods that would be implemented into the application. -J.I
+    4. The User class’ attributes allows for the application to log into a device with their information rather than to a designated device. -J.I
+
 
 ### Cons:
     1. Although there are methods within the User class to create ReminderList, the design shows no relationship between Users and the ReminderLists they create. -T.R
     2. I believe that within the design, you could possibly include utility classes to handle arbitrary values of Time, Date, Location. -T.R
     3. One of the requirements asks for a hierarchical format for Reminders where their type and names are seperate which could be added to the design. -T.R
+    4. There seems to be no relationship between the User and the ReminderList to allow the User to manage it. -J.I
 
 ## Design 2 (Nana Kodjo Acquah):
 
@@ -20,18 +24,28 @@
 ### Pros:
     1. I like how you included a Priority class to check whether or not a Reminder is important or not. -T.R
     2. Very nice use of the dependency relationships along with aggregations to explicitly show that the ReminderList has Reminders. -T.R
+    3. The explanations in the relationships is helpful to understand the design of the application. -J.I
+    4. The idea of a User directly receiving an Alert seems to be better than a User receiving an Alert from a Reminder. -J.I
 
 ### Cons:
     1. There is redundant information within the design where the methods within the User class seem to be classes of their own. -T.R
     2. This design could be refactored more to a point where we can get rid of 6 exisiting classes inorder to have a more compact, crisp layout. -T.R
+    3. The design appears to be convoluted and could be simplified. Instead of creating new classes, it can be handled as a method. -J.I
+    
+
 
 ## Design 3 (Torendra Rasik):
 
 ![](images/Torendra.png)
 
 ### Pros:
+    1. The design displays all of the possible classes and necessary relationships needed to complete the requirements. -J.I
+    2. The use of a Utility class gets rid of the need to create separate classes to get the Date/Time/Location for an Alert. -J.I
 
 ### Cons:
+    1. The hierarchical aspect in the requirements could possibly be handled in the Reminder class instead of in its own separate class. -J.I
+    2. The use of a ReminderList in the Database class may not be necessary as it should only contain Reminders. -J.I
+
 
 ## Design 4 (Jeffrey Kim):
 
@@ -40,10 +54,13 @@
 ### Pros:
     1. Very nice use of including a Utility class to show we can get Time, Date, and Location from the Android OS. -T.R
     2. Very compact design that gives enough information to answer all requirements, while clearly showing the inheritance of Reminder to List. -T.R
+    3. Simple and clear design that meets the requirements of the application. -J.I
+    
 
 ### Cons:
     1. I do believe we can split the type and name of the Reminder into two seperate classes where we can save them correspondingly and lets us display them in the UI easier. -T.R
     2. Maybe we shouldn't say that there's an aggregation between a Reminder and the Database because the database basically saves everything within the App, so the App is just dependant of the database. -T.R
+    3. The User may need to be able to create a Reminder on its own and a List on its own. The current design implies that the User cannot create a Reminder without first creating a List. -J.I
 
 ## Design 5 (Jonas Improgo):
 
