@@ -87,8 +87,11 @@
 
 ![](images/Team-Design.png)
 
-
+<p> The team design branched off of Daniel Rand’s design and maintained the main classes that all of our individual designs consisted of, which includes the Reminder, ReminderList, and Alert classes. Despite the fact that we have Databases in all of our designs, we removed it from the main design as it does not need to be represented in a UML diagram. While a User class could be a good feature to have, it is not necessary for a regular Reminder application. To handle all of the essential parts of the application, which includes creating, editing, and/or deleting Reminders or ReminderLists, we added a Manager class to the design. We also added a ReminderType class to allow a user to select through a list of types hierarchically. A Persistence class was created to ensure that the data is saved throughout the application for Reminders and ReminderLists. Lastly, we included a Utility class that is embedded in the device’s operating system for the Alert class to be able to receive the date, time, and/or location. </p>
+	
 # Summary:
+
+<p> Throughout the process of discussion of the designs, we learned to take constructive criticism from all of our individual designs and adapt it towards the main design. We transferred the important aspects from each design that would be needed to fulfill the requirements and found what needed to be prioritized and what was unnecessary. We worked together to create a diagram that we would all be able to understand so that we would be able to implement it into code. </p>
 
 
 
