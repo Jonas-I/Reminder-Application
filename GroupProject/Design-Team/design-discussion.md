@@ -85,6 +85,9 @@
 
 # Team Design:
 
+![](images/Team-Design.png)
+
+
 # Summary:
 
 
