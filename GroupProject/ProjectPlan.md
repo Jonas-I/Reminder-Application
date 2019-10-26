@@ -69,6 +69,8 @@ The product we are developing is a simple and easy to use Android application to
 - Database Engineer
 	- Responsible for designing, implementing, and maintaining the database. 
 	- Will communicate with the Backend Engineer regarding incorporation of database querying into the backend. 
+- Test Engineer
+	- Responsible for designing test procedure, strategy, individual test cases, and framework selection.
 - Documentation
 	- Responsible for documenting application structure and use guides.
 - Project Manager
