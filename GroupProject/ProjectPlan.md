@@ -4,17 +4,51 @@
 
 ## 1. Introduction
 
-The product we are developing is a simple and easy to use Android application to manage tasks that a user wants to be reminded of.  The key feature of the app is the orginization of reminders into heirarchical lists grouped by category. 
+The product we are developing is a simple and easy to use Android application to manage tasks that a user wants to be reminded of.  The key feature of the app is the orginization of reminders into heirarchical lists grouped by category.
 
 
 ## 2. Process Description
 
-*Process description as a set of activities; for each activity, provide the following:*
+### Main Activity:
 
-- *Activity name (verb or verb phrase)*
-- *Activity description (concise paragraph)*
-- *Entrance criteria (inputs needed for the activity)*
-- *Exit criteria (outputs produced by the activity and how you know it has been completed satisfactorily)*
+**Description:**
+
+- This is the activity the user is greeted with upon opening the app. It contains ther user's heirarchical reminder lists grouped by type and is the main medium through which the user interacts with the application. It allows to user to perform actions such as expand lists, view reminders, edit reminders, delete reminders, create reminders, etc., opening new activites if necessary.
+
+**Entrance Criteria**
+
+- This is the default actvity. It is opens immediately upon running the application, so is not reliant on input.
+
+**Exit Criteria**
+- None, see above.
+
+### Create Reminder Activity:
+
+**Description:**
+
+- This activity is prompted by the main activity when the user desires to create a new reminder. It will allow the user create a reminder and edit all features of a reminder such as alerts, description, name, etc. 
+
+**Entrance Criteria**
+
+- If being added to a specific Reminder the input will be that reminder list.
+
+**Exit Criteria**
+- The output will be a new Reminder. 
+- We know if it is completed satisfactorily if the Reminder is valid, meaning all necessary fields are given values.
+
+### Edit Reminder Activity:
+
+**Description:**
+
+- This activity is prompted by the main activity when the user desires to edit a existing reminder. It will allow the user to edit all features of a reminder such as alerts, description, name, category, etc.
+
+**Entrance Criteria**
+
+- Input to the activity would be an existing reminder that the user selected from the list in order to edit.
+
+**Exit Criteria**
+- The output will be the same reminder, but with its attributes altered to the preferences of the user.
+- We know if it is completed satisfactorily if the Reminder is valid, meaning all necessary fields are given values.
 
 ## 3. Team
 **People:**
