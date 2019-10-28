@@ -2,7 +2,7 @@
 
 *This is the template for your design document. The parts in italics are concise explanations of what should go in the corresponding sections and should not appear in the final document.*
 
-**Author**: Torendra Rasik
+**Author**: Torendra Rasik, Jonas Improgo
 
 ## 1 Design Considerations
 
@@ -10,15 +10,19 @@
 
 ### 1.1 Assumptions
 
-*Describe any assumption, background, or dependencies of the software, its use, the operational environment, or significant project issues.*
+- The user is using an Android device.
+- The Android devices has a built-in database, SQLite.
+- The system is implemented using only the Java programming language on Android Studio.
+- The requirements of the project is concrete and will not change.
 
 ### 1.2 Constraints
 
-*Describe any constraints on the system that have a significant impact on the design of the system.*
+- The system is meant to fulfill the requirements of the project and may not include any extra features outside of the requirements.
+- The time frame of the project is limited to before or at the end of the current semester.
 
 ### 1.3 System Environment
 
-*Describe the hardware and software that the system must operate in and interact with.*
+- The system is designed to work only on Android operating systems.
 
 ## 2 Architectural Design
 
