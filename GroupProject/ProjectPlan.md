@@ -79,8 +79,8 @@ The product we are developing is a simple and easy to use Android application to
 
 | Team Member       | Roles                             |
 |-------------------|-----------------------------------|
-| Daniel Rand       | Project Manager, Backend Engineer |
+| Daniel Rand       | Project Manager, Backend Engineer, Database Engineer|
 | Torendra Rasik    | Test Engineer, Documentation      |
 | Jeffrey Kim       | Frontend Engineer, Test Engineer  |
 | Jonas Improgo     | User Interface Designer, Frontend Engineer, Backend Engineer|
-| Nana Kodjo Acquah | Database Engineer                 |
+| Nana Kodjo Acquah | Database Engineer, Documentation  |
