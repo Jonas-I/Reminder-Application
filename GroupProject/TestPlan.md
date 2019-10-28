@@ -6,7 +6,10 @@
 
 ### 1.1 Overall strategy
 
-For unit testing, we will first see if we can create Reminders and Lists, which are the core classes of our application, and test them with and without necessary attributes. For integration testing, we will test the methods in the classes that require another class object to exist in order to work. For example, a Reminder can only be added to a List if a List exists, and an Alert can only be made if a Reminder exists. For system testing, we will try recreating a typical user experience: from creating lists and reminders, to testing if the user gets the alert created for a Reminder. For regression testing, we will have to retest all test cases that are related to the change. 
+-For unit testing, we will first see if we can create Reminders and Lists, which are the core classes of our application, and test them with and without necessary attributes. 
+-For integration testing, we will test the methods in the classes that require another class object to exist in order to work. For example, a Reminder can only be added to a List if a List exists, and an Alert can only be made if a Reminder exists. 
+-For system testing, we will try recreating a typical user experience: from creating lists and reminders, to testing if the user gets the alert created for a Reminder. 
+-For regression testing, we will have to retest all test cases that are related to the change. 
 
 ### 1.2 Test Selection
 
@@ -14,7 +17,8 @@ We will select our test cases based on condition testing. We will first test the
 
 ### 1.3 Adequacy Criterion
 
-*Define how you are going to assess the quality of your test cases. Typically, this involves some form of functional or structural coverage. If you plan to use different techniques at different testing levels (e.g., unit and system), you should clarify that.*
+-When Unit testing, we can assess the quality of our test cases by calculating the number of line of code we are executing with the test case divided by the total lines of code in the unit (class) we are testing times 100. 
+-When we are Integration and System testing, we can assess the quality of our test cases by calculating the number of lines of code we are executing with the test case divided by the total lines of code in the entire application times 100.
 
 ### 1.4 Bug Tracking
 
@@ -22,7 +26,7 @@ We can have a form that a user can fill out to submit bugs and feature requests 
 
 ### 1.5 Technology
 
-We will use JUnit and Espresso tests in Android Studio to implement tests. 
+We will use JUnit and Espresso tests in Android Studio to implement tests. (May use other Technology upon furthur research)
 
 ## 2 Test Cases
 
