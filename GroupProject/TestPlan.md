@@ -17,8 +17,7 @@ We will select our test cases based on condition testing. We will first test the
 
 ### 1.3 Adequacy Criterion
 
--When Unit testing, we can assess the quality of our test cases by calculating the number of line of code we are executing with the test case divided by the total lines of code in the unit (class) we are testing times 100. 
--When we are Integration and System testing, we can assess the quality of our test cases by calculating the number of lines of code we are executing with the test case divided by the total lines of code in the entire application times 100.
+When Unit testing, we can assess the quality of our test cases by calculating the number of line of code we are executing with the test case divided by the total lines of code in the unit (class) we are testing times 100. When we are Integration and System testing, we can assess the quality of our test cases by calculating the number of lines of code we are executing with the test case divided by the total lines of code in the entire application times 100.
 
 ### 1.4 Bug Tracking
 
