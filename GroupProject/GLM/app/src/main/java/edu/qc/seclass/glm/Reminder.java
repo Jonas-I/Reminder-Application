@@ -67,5 +67,4 @@ public class Reminder implements Comparable{
     public int compareTo(Object o) {
         return this.description.compareToIgnoreCase(((Reminder)o).description);
     }
-
 }
