@@ -1,16 +1,20 @@
 package edu.qc.seclass.glm;
 
-public class Reminder {
+public class Reminder implements Comparable{
 
-    String description;
-    ReminderType type;
-    boolean isChecked;
-    Alert alert;
-    int reminderID;
+    private String description;
+    private ReminderType type;
+    private boolean isChecked = false;
+    private Alert alert;
+    private static int reminderCounter = 0;
+    private final int reminderID;
 
     public Reminder(String description, ReminderType type) {
         this.description = description;
         this.type = type;
+        alert = null;
+        reminderID = reminderCounter++;
+        System.out.println(reminderID + " " + reminderCounter);
     }
 
 
@@ -18,6 +22,8 @@ public class Reminder {
         this.description = description;
         this.type = type;
         this.alert = alert;
+        reminderID = reminderCounter++;
+        System.out.println(reminderID + " " + reminderCounter);
     }
 
 
@@ -57,7 +63,9 @@ public class Reminder {
         return reminderID;
     }
 
-    public void setReminderID(int reminderID) {
-        this.reminderID = reminderID;
+    @Override
+    public int compareTo(Object o) {
+        return this.description.compareToIgnoreCase(((Reminder)o).description);
     }
+
 }

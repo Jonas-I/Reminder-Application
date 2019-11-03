@@ -1,4 +1,32 @@
 package edu.qc.seclass.glm;
 
-public class ReminderList {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+public class ReminderList implements Iterable<Reminder>{
+
+    private ArrayList <Reminder> reminderList;
+    private ReminderType categoryGroup;
+    private String name;
+
+    public ReminderList(String name, ReminderType categoryGroup) {
+        this.categoryGroup = categoryGroup;
+        this.name = name;
+        reminderList = new ArrayList<>();
+    }
+
+    public void sortListByName () {
+        Collections.sort(reminderList);
+    }
+
+    public void addReminder (Reminder r) {
+        reminderList.add(0,r);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return reminderList.iterator();
+    }
+
 }
