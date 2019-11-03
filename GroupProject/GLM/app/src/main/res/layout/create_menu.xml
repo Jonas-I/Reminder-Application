@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#50000000">
+    <!--make transparent-->
+
+    <View
+        android:id="@+id/createCenterView"
+        android:layout_width="202dp"
+        android:layout_height="124dp"
+        android:background="#5E8DA2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="9dp">
+    </View>
+
+    <Button
+        android:id="@+id/createReminder"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_above="@id/createList"
+        android:layout_marginBottom="1dp"
+        android:text="Create Reminder"
+        android:textStyle="bold"
+        android:textColor="#ddf4ff"
+        android:background="#76B4D0"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/createList"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_above="@id/cancel"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="1dp"
+        android:text="Create List"
+        android:textStyle="bold"
+        android:textColor="#ddf4ff"
+        android:background="#76B4D0"/>
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:background="#76B4D0"
+        android:text="Cancel"
+        android:textColor="#CA6A6A"
+        android:textStyle="bold" />
+
+
+
+
+
+</RelativeLayout>
