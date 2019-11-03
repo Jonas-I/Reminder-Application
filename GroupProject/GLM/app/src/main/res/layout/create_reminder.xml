@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A5E3FF">
+    <!--Type-->
+    <TextView
+        android:id="@+id/createName"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Name:"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/inputName"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_toRightOf="@id/createName"
+        android:hint="Enter the name of the reminder"
+        android:singleLine="true"
+        android:textSize="13dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <!--Type-->
+    <TextView
+        android:id="@+id/createType"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/createName"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Type:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/inputType"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@id/createName"
+        android:layout_marginRight="5dp"
+
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/createType"
+        android:hint="Enter the type of reminder"
+        android:singleLine="true"
+        android:textSize="13sp" />
+
+    <!--Description-->
+    <TextView
+        android:id="@+id/createDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/createType"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Description:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/inputDescription"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/createType"
+        android:layout_toRightOf="@id/createDescription"
+        android:hint="Enter a description"
+        android:textSize="13dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <!--Alert-->
+    <TextView
+        android:id="@+id/createAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/inputDescription"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Alert:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!--Time-->
+    <TextView
+        android:id="@+id/createTime"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/createAlert"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/createAlert"
+        android:text="Time:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/inputTime"
+        android:inputType="datetime"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@id/createAlert"
+        android:layout_toRightOf="@id/createTime"
+        android:hint="Set a time"
+        android:textSize="13dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <!--Location-->
+    <TextView
+        android:id="@+id/createLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_below="@id/createTime"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/createAlert"
+        android:text="Location:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/inputLocation"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@id/createTime"
+        android:layout_toRightOf="@id/createLocation"
+        android:hint="Set a location"
+        android:textSize="13dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"/>
+
+
+    <View
+        android:id="@+id/centerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true">
+    </View>
+
+    <View
+        android:id="@+id/borderView"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:background="#5E8DA2">
+    </View>
+
+    <Button
+        android:id="@+id/createReminderCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/centerView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="1dp"
+        android:text="Cancel"
+        android:textColor="#CA6A6A"
+        android:background="#76B4D0"/>
+
+    <Button
+        android:id="@+id/createReminderDone"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/centerView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="1dp"
+
+        android:text="Done"
+        android:textStyle="bold"
+        android:textColor="#AEE0B6"
+        android:background="#76B4D0"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#8FDDFF"
+    style="@style/AppTheme"
+    >
+
+    <CheckBox
+        android:id="@+id/remItem"
+        android:textSize="18dp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="#476877"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--This is the description of the reminder-->
+    <TextView
+        android:id="@+id/remDescription"
+        android:textSize="12dp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="#476877"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--This should include the location/time for an ALERT-->
+    <TextView
+        android:id="@+id/remAlert"
+        android:textSize="12dp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="#476877"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
