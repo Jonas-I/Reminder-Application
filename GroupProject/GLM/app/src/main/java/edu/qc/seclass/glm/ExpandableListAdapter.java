@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.List;
@@ -70,7 +71,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String childText = (String) getChild(groupPosition, childPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,8 +80,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItem);
         tvListChild.setText(childText);
+        tvListChild.setOnClickListener(new View.OnClickListener () {
+
+            @Override
+            public void onClick(View v) {
+                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+                selectedReminder.setChecked(((CheckBox)v).isChecked());
+            }
+
+        });
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
