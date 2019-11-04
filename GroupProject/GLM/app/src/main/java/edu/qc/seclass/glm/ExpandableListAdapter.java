@@ -2,18 +2,24 @@ package edu.qc.seclass.glm;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<ReminderList> listDataHeader;
+
+    private final Set<Pair<Long, Long>> tagCheckedItems = new HashSet<>();
 
     public ExpandableListAdapter(Context context, List<ReminderList> listDataHeader) {
         this.context = context;
@@ -77,13 +83,33 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.reminder_item, null);
         }
 
-        TextView tvListChild = (TextView) convertView.findViewById(R.id.remItem);
-        tvListChild.setText(childText);
+        CheckBox cbListChild = (CheckBox) convertView.findViewById(R.id.remItem);
+        final Pair<Long, Long> tag = new Pair<Long, Long>(getGroupId(groupPosition), getChildId(groupPosition, childPosition));
+        cbListChild.setTag(tag);
+        cbListChild.setChecked(tagCheckedItems.contains(tag));
+        cbListChild.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final CheckBox cb = (CheckBox) v;
+                final Pair<Long, Long> tag = (Pair<Long, Long>) v.getTag();
+                if (cb.isChecked()) {
+                    tagCheckedItems.add(tag);
+                } else {
+                    tagCheckedItems.remove(tag);
+                }
+            }
+        });
+        cbListChild.setText(childText);
+
+
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    public Set<Pair<Long, Long>> getCheckedItems() {
+        return tagCheckedItems;
     }
 }
