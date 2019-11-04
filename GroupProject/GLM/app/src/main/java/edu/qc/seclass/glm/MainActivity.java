@@ -2,10 +2,13 @@ package edu.qc.seclass.glm;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +26,33 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this, listDataHeader);
         listView.setAdapter(listAdapter);
 
-//        findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                displayMenu(MainActivity.this);
-//            }
-//        });
+
+        findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.overlay).setVisibility(View.VISIBLE);
+                findViewById(R.id.createCenterView).setVisibility(View.VISIBLE);
+                findViewById(R.id.createReminder).setVisibility(View.VISIBLE);
+                findViewById(R.id.createList).setVisibility(View.VISIBLE);
+                findViewById(R.id.cancel).setVisibility(View.VISIBLE);
+
+                Button cancel = (Button) findViewById(R.id.cancel);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        findViewById(R.id.overlay).setVisibility(View.GONE);
+                        findViewById(R.id.createCenterView).setVisibility(View.GONE);
+                        findViewById(R.id.createReminder).setVisibility(View.GONE);
+                        findViewById(R.id.createList).setVisibility(View.GONE);
+                        findViewById(R.id.cancel).setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
 
     }
+
 
     // Displays the list to the main activity screen
     private void displayLists() {
@@ -47,23 +69,5 @@ public class MainActivity extends AppCompatActivity {
         listDataHeader.add(homework);
     }
 
-    // displayMenu displays the XML, create_menu, and does not require the need for a new activity
-//    private void displayMenu(Context context) {
-//        final Dialog dialog =  new Dialog(context);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(R.layout.create_menu);
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.setCancelable(true);
-//
-//        Button createReminder = (Button) dialog.findViewById(R.id.createReminder);
-//        Button createList = (Button) dialog.findViewById(R.id.createList);
-//        Button cancel = (Button) dialog.findViewById(R.id.cancel);
-//
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//    }
+
 }
