@@ -76,7 +76,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String childText = (String) getChild(groupPosition, childPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,11 +84,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         CheckBox cbListChild = (CheckBox) convertView.findViewById(R.id.remItem);
-        final Pair<Long, Long> tag = new Pair<Long, Long>(getGroupId(groupPosition), getChildId(groupPosition, childPosition));
+        final Pair<Long, Long> tag = new Pair<>(getGroupId(groupPosition), getChildId(groupPosition, childPosition));
         cbListChild.setTag(tag);
         cbListChild.setChecked(tagCheckedItems.contains(tag));
         cbListChild.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+                selectedReminder.setChecked(((CheckBox)v).isChecked());
                 final CheckBox cb = (CheckBox) v;
                 final Pair<Long, Long> tag = (Pair<Long, Long>) v.getTag();
                 if (cb.isChecked()) {
@@ -99,10 +101,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         });
         cbListChild.setText(childText);
-
-
         return convertView;
     }
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
