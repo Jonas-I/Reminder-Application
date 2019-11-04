@@ -61,12 +61,15 @@ public class MainActivity extends AppCompatActivity {
         ReminderType defaultType = new ReminderType("Reminders");
         ReminderList defaultList = new ReminderList("Reminders",defaultType);
         defaultList.addReminder(new Reminder("Buy Groceries",defaultType));
+        defaultList.addReminder(new Reminder("Apply to jobs",defaultType));
         listDataHeader.add(defaultList);
 
         ReminderType hw = new ReminderType("Homework");
         ReminderList homework = new ReminderList("Reminders",hw);
         homework.addReminder(new Reminder("Finish 370 Project",hw));
+        homework.addReminder(new Reminder("Finish 316 Project",hw));
         listDataHeader.add(homework);
+
     }
 
 
