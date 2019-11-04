@@ -1,25 +1,17 @@
 package edu.qc.seclass.glm;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
-    private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHash;
-
+    private List<ReminderList> listDataHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ExpandableListView) findViewById(R.id.ExpandLV);
         displayLists();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listHash);
+        listAdapter = new ExpandableListAdapter(this, listDataHeader);
         listView.setAdapter(listAdapter);
 
 //        findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
@@ -42,22 +34,17 @@ public class MainActivity extends AppCompatActivity {
 
     // Displays the list to the main activity screen
     private void displayLists() {
-        // The
         listDataHeader = new ArrayList<>();
-        listHash = new HashMap<>();
 
+        ReminderType defaultType = new ReminderType("Reminders");
+        ReminderList defaultList = new ReminderList("Reminders",defaultType);
+        defaultList.addReminder(new Reminder("Buy Groceries",defaultType));
+        listDataHeader.add(defaultList);
 
-        listDataHeader.add("Reminders");
-        List<String> defaultList = new ArrayList<>();
-        defaultList.add("Test");
-        defaultList.add("Test2");
-        listHash.put(listDataHeader.get(0), defaultList);
-
-        listDataHeader.add("Title2");
-        List<String> defaultList2 = new ArrayList<>();
-        defaultList2.add("HelloWorld");
-        listHash.put(listDataHeader.get(1),defaultList2);
-
+        ReminderType hw = new ReminderType("Homework");
+        ReminderList homework = new ReminderList("Reminders",hw);
+        homework.addReminder(new Reminder("Finish 370 Project",hw));
+        listDataHeader.add(homework);
     }
 
     // displayMenu displays the XML, create_menu, and does not require the need for a new activity

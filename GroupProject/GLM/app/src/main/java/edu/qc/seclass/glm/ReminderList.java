@@ -29,4 +29,16 @@ public class ReminderList implements Iterable<Reminder>{
         return reminderList.iterator();
     }
 
+    public int size () {
+        return reminderList.size();
+    }
+
+    public Reminder get (int i) {
+        return reminderList.get(i);
+    }
+
+    public ReminderType getCategoryGroup() {
+        return categoryGroup;
+    }
+
 }

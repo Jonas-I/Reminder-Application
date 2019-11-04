@@ -8,18 +8,16 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
-    private Context context;
-    private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHashMap;
 
-    public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
+    private Context context;
+    private List<ReminderList> listDataHeader;
+
+    public ExpandableListAdapter(Context context, List<ReminderList> listDataHeader) {
         this.context = context;
         this.listDataHeader = listDataHeader;
-        this.listHashMap = listHashMap;
     }
 
     @Override
@@ -29,17 +27,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return listHashMap.get(listDataHeader.get(groupPosition)).size();
+        return listDataHeader.get(groupPosition).size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return listDataHeader.get(groupPosition);
+        return listDataHeader.get(groupPosition).getCategoryGroup().getType();
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return listHashMap.get(listDataHeader.get(groupPosition)).get(childPosition);
+        return listDataHeader.get(groupPosition).get(childPosition).getDescription();
     }
 
     @Override
