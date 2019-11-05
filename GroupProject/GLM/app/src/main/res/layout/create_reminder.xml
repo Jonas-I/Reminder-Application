@@ -7,47 +7,50 @@
     <TextView
         android:id="@+id/createName"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:text="Name:"
         android:textSize="18dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
 
     <EditText
         android:id="@+id/inputName"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_toRightOf="@id/createName"
         android:hint="Enter the name of the reminder"
         android:singleLine="true"
         android:textSize="13dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"/>
 
     <!--Type-->
     <TextView
         android:id="@+id/createType"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createName"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:text="Type:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
 
     <EditText
         android:id="@+id/inputType"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createName"
         android:layout_marginRight="5dp"
-
+        android:gravity="center_vertical"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/createType"
         android:hint="Enter the type of reminder"
@@ -58,25 +61,27 @@
     <TextView
         android:id="@+id/createDescription"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createType"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:text="Description:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
 
     <EditText
         android:id="@+id/inputDescription"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="100dp"
         android:layout_below="@id/createType"
         android:layout_toRightOf="@id/createDescription"
         android:hint="Enter a description"
         android:textSize="13dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:gravity="top"/>
 
     <!--Alert-->
     <TextView
@@ -89,13 +94,14 @@
         android:layout_marginBottom="5dp"
         android:text="Alert:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
 
     <!--Time-->
     <TextView
         android:id="@+id/createTime"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createAlert"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
@@ -109,19 +115,20 @@
         android:id="@+id/inputTime"
         android:inputType="datetime"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createAlert"
         android:layout_toRightOf="@id/createTime"
         android:hint="Set a time"
         android:textSize="13dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"/>
 
     <!--Location-->
     <TextView
         android:id="@+id/createLocation"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createTime"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
@@ -129,18 +136,20 @@
         android:layout_toRightOf="@id/createAlert"
         android:text="Location:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
 
     <EditText
         android:id="@+id/inputLocation"
         android:layout_width="match_parent"
-        android:layout_height="24dp"
+        android:layout_height="50dp"
         android:layout_below="@id/createTime"
         android:layout_toRightOf="@id/createLocation"
         android:hint="Set a location"
         android:textSize="13dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:gravity="center_vertical"/>
 
 
     <View
