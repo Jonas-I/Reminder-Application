@@ -54,8 +54,15 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.createReminder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Clicked");
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.createList).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateReminderListActivity.class);
                 startActivity(intent);
             }
         });
