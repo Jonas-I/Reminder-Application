@@ -5,12 +5,12 @@
     android:background="#A5E3FF">
 
     <TextView
-        android:id="@+id/createReminderTitle"
+        android:id="@+id/editReminderTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#76B4D0"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Create Reminder"
+        android:text="Edit Reminder"
         android:textColor="#1C2529"
         android:textSize="24dp"
         android:textStyle="bold" />
@@ -18,14 +18,14 @@
     <View
         android:id="@+id/lineView"
         android:layout_width="match_parent"
-        android:layout_below="@id/createReminderTitle"
+        android:layout_below="@id/editReminderTitle"
         android:layout_height="2dp"
         android:background="#5E8DA2">
     </View>
 
     <!--Type-->
     <TextView
-        android:id="@+id/createType"
+        android:id="@+id/editType"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="0dp"
@@ -39,14 +39,14 @@
         android:gravity="center_vertical"/>
 
     <EditText
-        android:id="@+id/inputType"
+        android:id="@+id/editInputType"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/lineView"
         android:layout_marginTop="0dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/createType"
+        android:layout_toRightOf="@id/editType"
         android:background="@null"
         android:gravity="center_vertical"
         android:hint="Enter the type of reminder"
@@ -57,7 +57,7 @@
     <View
         android:id="@+id/lineView1"
         android:layout_width="match_parent"
-        android:layout_below="@id/createType"
+        android:layout_below="@id/editType"
         android:layout_height="2dp"
         android:layout_marginLeft="10dp"
         android:background="#5E8DA2">
@@ -65,7 +65,7 @@
 
     <!--Description-->
     <TextView
-        android:id="@+id/createDescription"
+        android:id="@+id/editDescription"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_below="@id/lineView1"
@@ -79,14 +79,14 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/inputDescription"
+        android:id="@+id/editInputDescription"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/lineView1"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/createDescription"
+        android:layout_toRightOf="@id/editDescription"
         android:background="@null"
         android:gravity="top"
         android:hint="Enter a description"
@@ -97,14 +97,14 @@
     <View
         android:id="@+id/lineView2"
         android:layout_width="match_parent"
-        android:layout_below="@id/inputDescription"
+        android:layout_below="@id/editInputDescription"
         android:layout_height="2dp"
         android:layout_marginLeft="10dp"
         android:background="#5E8DA2"/>
 
     <!--Alert-->
     <TextView
-        android:id="@+id/createAlert"
+        android:id="@+id/editAlert"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_below="@id/lineView2"
@@ -119,34 +119,34 @@
     <View
         android:id="@+id/lineView3"
         android:layout_width="match_parent"
-        android:layout_below="@id/createAlert"
+        android:layout_below="@id/editAlert"
         android:layout_height="2dp"
         android:layout_marginLeft="10dp"
         android:background="#5E8DA2"/>
 
     <!--Time-->
     <TextView
-        android:id="@+id/createTime"
+        android:id="@+id/editTime"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_below="@id/lineView3"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/createAlert"
+        android:layout_toRightOf="@id/editAlert"
         android:text="Time:"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center_vertical"/>
 
     <EditText
-        android:id="@+id/inputTime"
+        android:id="@+id/editInputTime"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/lineView3"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/createTime"
+        android:layout_toRightOf="@id/editTime"
         android:background="@null"
         android:gravity="center_vertical"
         android:hint="Set a time"
@@ -157,35 +157,35 @@
     <View
         android:id="@+id/lineView4"
         android:layout_width="match_parent"
-        android:layout_below="@id/createTime"
+        android:layout_below="@id/editTime"
         android:layout_height="2dp"
         android:background="#5E8DA2"
-        android:layout_toRightOf="@id/createAlert"
+        android:layout_toRightOf="@id/editAlert"
         android:layout_marginLeft="10dp"/>
 
     <!--Location-->
     <TextView
-        android:id="@+id/createLocation"
+        android:id="@+id/editLocation"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@id/createTime"
+        android:layout_below="@id/editTime"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/createAlert"
+        android:layout_toRightOf="@id/editAlert"
         android:text="Location:"
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center_vertical"/>
 
     <EditText
-        android:id="@+id/inputLocation"
+        android:id="@+id/editInputLocation"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/createTime"
+        android:layout_below="@id/editTime"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@id/createLocation"
+        android:layout_toRightOf="@id/editLocation"
         android:background="@null"
         android:gravity="center_vertical"
         android:hint="Set a location"
@@ -195,10 +195,10 @@
     <View
         android:id="@+id/lineView5"
         android:layout_width="match_parent"
-        android:layout_below="@id/createLocation"
+        android:layout_below="@id/editLocation"
         android:layout_height="2dp"
         android:background="#5E8DA2"
-        android:layout_toRightOf="@id/createAlert"
+        android:layout_toRightOf="@id/editAlert"
         android:layout_marginLeft="10dp"/>
 
 
@@ -219,7 +219,7 @@
     </View>
 
     <Button
-        android:id="@+id/createReminderCancel"
+        android:id="@+id/editReminderCancel"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignRight="@id/centerView"
@@ -231,7 +231,7 @@
         android:background="#76B4D0"/>
 
     <Button
-        android:id="@+id/createReminderDone"
+        android:id="@+id/editReminderDone"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignLeft="@id/centerView"
