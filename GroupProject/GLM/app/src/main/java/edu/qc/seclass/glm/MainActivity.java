@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.createReminder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.overlay).setVisibility(View.GONE);
+                findViewById(R.id.createCenterView).setVisibility(View.GONE);
+                findViewById(R.id.createReminder).setVisibility(View.GONE);
+                findViewById(R.id.createList).setVisibility(View.GONE);
+                findViewById(R.id.cancel).setVisibility(View.GONE);
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
                 startActivityForResult(intent, 1);// Activity is started with requestCode 2
             }
@@ -62,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.createList).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.overlay).setVisibility(View.GONE);
+                findViewById(R.id.createCenterView).setVisibility(View.GONE);
+                findViewById(R.id.createReminder).setVisibility(View.GONE);
+                findViewById(R.id.createList).setVisibility(View.GONE);
+                findViewById(R.id.cancel).setVisibility(View.GONE);
                 Intent intent = new Intent(MainActivity.this, CreateReminderListActivity.class);
                 startActivity(intent);
             }
