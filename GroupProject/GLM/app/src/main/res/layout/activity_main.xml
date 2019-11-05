@@ -10,30 +10,40 @@
 
     <ExpandableListView
         android:id="@+id/ExpandLV"
+        android:layout_below="@id/createButton"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:divider="#476877"
         android:dividerHeight="2dp">
     </ExpandableListView>
-
     <View
-        android:id="@+id/dividerView"
+        android:id="@+id/dividerView2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/ExpandLV"
         android:background="#476877"/>
 
+    <View
+        android:id="@+id/dividerView"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/createButton"
+        android:background="#476877"/>
+
     <Button
         android:id="@+id/createButton"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
+        android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_below="@id/dividerView"
-        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:divider="#476877"
         android:dividerHeight="2dp"
-        android:drawableStart="@drawable/ic_plus"
-        android:layout_marginStart="20dp"/>
+        android:drawableLeft="@drawable/ic_plus"
+        android:paddingLeft="0dp" />
 
     <!--Overlay-->
     <View

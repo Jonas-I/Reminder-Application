@@ -100,7 +100,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-        cbListChild.setText(childText);
+
+        TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);
+        tvListChild.setText(childText);
         return convertView;
     }
 
