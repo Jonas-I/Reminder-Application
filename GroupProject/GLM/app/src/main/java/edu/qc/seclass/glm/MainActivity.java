@@ -1,5 +1,6 @@
 package edu.qc.seclass.glm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this, listDataHeader);
         listView.setAdapter(listAdapter);
 
-
         findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
                         findViewById(R.id.cancel).setVisibility(View.GONE);
                     }
                 });
+            }
+        });
+
+        findViewById(R.id.createReminder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Clicked");
+                Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
+                startActivity(intent);
             }
         });
 
