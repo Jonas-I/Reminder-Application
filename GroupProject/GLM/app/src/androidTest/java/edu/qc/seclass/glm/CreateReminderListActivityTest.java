@@ -17,6 +17,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class CreateReminderListActivityTest {
@@ -37,7 +38,8 @@ public class CreateReminderListActivityTest {
     @Test
     public void CancelButtonTest() {
         onView(withId(R.id.createListCancel)).perform(click());
-        intended(hasComponent(MainActivity.class.getName())); // NOT WORKING
+        assertEquals(0, mActivityTestRule.getActivityResult().getResultCode());
+        //intended(hasComponent(MainActivity.class.getName())); // NOT WORKING
     }
 
     @Test

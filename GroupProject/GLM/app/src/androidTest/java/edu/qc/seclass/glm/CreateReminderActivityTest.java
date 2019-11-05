@@ -21,6 +21,7 @@ import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
@@ -43,7 +44,8 @@ public class CreateReminderActivityTest {
     @Test
     public void CancelButtonTest() {
         onView(withId(R.id.createReminderCancel)).perform(click());
-        intended(hasComponent(MainActivity.class.getName())); // NOT WORKING
+        assertEquals(0, mActivityTestRule.getActivityResult().getResultCode());
+        //intended(hasComponent(MainActivity.class.getName())); // NOT WORKING
     }
 
     @Test
