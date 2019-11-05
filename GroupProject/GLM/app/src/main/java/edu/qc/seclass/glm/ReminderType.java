@@ -1,6 +1,8 @@
 package edu.qc.seclass.glm;
 
-public class ReminderType {
+import java.io.Serializable;
+
+public class ReminderType implements Serializable {
 
     private String type;
 
@@ -14,5 +16,10 @@ public class ReminderType {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        return type.equalsIgnoreCase(((ReminderType)o).getType());
     }
 }
