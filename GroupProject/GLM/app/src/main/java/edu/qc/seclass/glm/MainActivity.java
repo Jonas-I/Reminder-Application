@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);// Activity is started with requestCode 2
             }
         });
 
@@ -69,6 +69,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    // Call Back method  to get the Message form other Activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode== 1 && resultCode != 0) { // Returning from Create Reminder activity
+            Reminder new_reminder = (Reminder) data.getParcelableExtra("NEW_REMINDER");
+            System.out.println("REMINDER RETREIVED:\nType: " + new_reminder.getType().getType() + " Description: " + new_reminder.getDescription());
+            createReminder(new_reminder);
+        }
+        else if (requestCode == 2) { // Return from CreateReminderLst activity
+
+        }
+        else if (requestCode == 3) { // Return from EditReminder activity
+
+        }
+    }
+
+    private void createReminder (Reminder new_reminder) {
+        ReminderType type = new_reminder.getType();
+        ReminderList existingList = null;
+        for (ReminderList list: listDataHeader) {
+            if (list.getCategoryGroup().equals(type)) {
+                existingList = list;
+                break;
+            }
+        }
+        if (existingList != null) {
+            existingList.addReminder(new_reminder);
+            listAdapter.notifyDataSetChanged();
+        }
+        else {
+            ReminderList newList = new ReminderList(new_reminder.getType().getType(), new_reminder.getType());
+            newList.addReminder(new_reminder);
+            listDataHeader.add(newList);
+            listAdapter.notifyDataSetChanged();
+        }
+
+    }
 
     // Displays the list to the main activity screen
     private void displayLists() {

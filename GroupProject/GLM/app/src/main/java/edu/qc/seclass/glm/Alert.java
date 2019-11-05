@@ -1,8 +1,9 @@
 package edu.qc.seclass.glm;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Alert {
+public class Alert implements Serializable {
 
     private Date alertTime;
     private String message;

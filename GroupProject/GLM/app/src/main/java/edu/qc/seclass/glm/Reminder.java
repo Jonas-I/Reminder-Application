@@ -1,6 +1,9 @@
 package edu.qc.seclass.glm;
 
-public class Reminder implements Comparable{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Reminder implements Comparable, Parcelable {
 
     private String description;
     private ReminderType type;
@@ -66,5 +69,42 @@ public class Reminder implements Comparable{
     @Override
     public int compareTo(Object o) {
         return this.description.compareToIgnoreCase(((Reminder)o).description);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // write your object's data to the passed-in Parcel
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(description);
+        out.writeValue(type);
+        out.writeInt(isChecked ? 1 : 0);
+        out.writeValue(alert);
+        out.writeInt(reminderCounter);
+        out.writeInt(reminderID);
+    }
+
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<Reminder> CREATOR = new Parcelable.Creator<Reminder>() {
+        public Reminder createFromParcel(Parcel in) {
+            return new Reminder(in);
+        }
+
+        public Reminder[] newArray(int size) {
+            return new Reminder[size];
+        }
+    };
+
+    // example constructor that takes a Parcel and gives you an object populated with it's values
+    private Reminder(Parcel in) {
+        description = in.readString();
+        type = (ReminderType)in.readValue(ReminderType.class.getClassLoader());
+        isChecked = (in.readInt() == 1);
+        alert = (Alert)in.readValue(Alert.class.getClassLoader());
+        reminderCounter = in.readInt();
+        reminderID = in.readInt();
     }
 }
