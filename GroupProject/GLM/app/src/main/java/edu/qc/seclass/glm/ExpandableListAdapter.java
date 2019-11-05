@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -100,7 +101,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-
+        Button deleteBtn = (Button) convertView.findViewById(R.id.btnDelete);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+                listDataHeader.get(groupPosition).remove(childPosition);
+                notifyDataSetChanged();
+            }
+        });
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);
         tvListChild.setText(childText);
         return convertView;
