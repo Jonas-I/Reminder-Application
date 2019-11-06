@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ExpandableListView) findViewById(R.id.ExpandLV);
         displayLists();
-        listAdapter = new ExpandableListAdapter(this, listDataHeader);
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
         listView.setAdapter(listAdapter);
 
         findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
@@ -64,19 +64,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.createList).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.overlay).setVisibility(View.GONE);
-                findViewById(R.id.createCenterView).setVisibility(View.GONE);
-                findViewById(R.id.createReminder).setVisibility(View.GONE);
-                findViewById(R.id.createList).setVisibility(View.GONE);
-                findViewById(R.id.cancel).setVisibility(View.GONE);
-                Intent intent = new Intent(MainActivity.this, CreateReminderListActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
 
@@ -85,16 +72,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== 1 && resultCode != 0) { // Returning from Create Reminder activity
+        if (requestCode== 1 && resultCode == 1) { // Returning from Create Reminder activity
             Reminder new_reminder = (Reminder) data.getParcelableExtra("NEW_REMINDER");
             System.out.println("REMINDER RETREIVED:\nType: " + new_reminder.getType().getType() + " Description: " + new_reminder.getDescription());
             createReminder(new_reminder);
         }
-        else if (requestCode == 2) { // Return from CreateReminderLst activity
-
-        }
-        else if (requestCode == 3) { // Return from EditReminder activity
-
+        else if (resultCode == 2) { // Return from Edit activity
+            Reminder createdReminder = data.getParcelableExtra("NEW_REMINDER");
+            int list = data.getIntExtra("LIST",0);
+            int child = data.getIntExtra("REMINDER",0);
+            createdReminder.setChecked(listDataHeader.get(list).get(child).isChecked());
+            listDataHeader.get(list).set(child,createdReminder);
+            listAdapter.notifyDataSetChanged();
         }
     }
 

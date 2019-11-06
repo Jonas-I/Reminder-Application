@@ -1,6 +1,8 @@
 package edu.qc.seclass.glm;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -19,12 +21,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<ReminderList> listDataHeader;
+    Activity mainActivity;
 
     private final Set<Pair<Long, Long>> tagCheckedItems = new HashSet<>();
 
-    public ExpandableListAdapter(Context context, List<ReminderList> listDataHeader) {
+    public ExpandableListAdapter(Context context, List<ReminderList> listDataHeader, Activity mainActivity) {
         this.context = context;
         this.listDataHeader = listDataHeader;
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -104,9 +108,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         Button deleteBtn = (Button) convertView.findViewById(R.id.btnDelete);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
                 listDataHeader.get(groupPosition).remove(childPosition);
                 notifyDataSetChanged();
+            }
+        });
+        Button editBtn = (Button) convertView.findViewById(R.id.btnEdit);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+                Intent intent = new Intent(mainActivity, EditReminderActivity.class);
+                intent.putExtra("SELECTED_REMINDER", selectedReminder);
+                intent.putExtra("LIST", groupPosition);
+                intent.putExtra("REMINDER",childPosition);
+                mainActivity.startActivityForResult(intent,1);
             }
         });
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);

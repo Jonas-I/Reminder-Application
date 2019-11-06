@@ -3,7 +3,7 @@ package edu.qc.seclass.glm;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Reminder implements Comparable, Parcelable {
+public class Reminder implements Comparable, Parcelable{
 
     private String description;
     private ReminderType type;

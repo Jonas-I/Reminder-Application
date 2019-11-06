@@ -24,6 +24,10 @@
             android:name=".CreateReminderListActivity"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".EditReminderActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>

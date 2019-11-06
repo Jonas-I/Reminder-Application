@@ -43,4 +43,6 @@ public class ReminderList implements Iterable<Reminder>{
 
     public void remove (int i) {reminderList.remove(i);}
 
+    public void set (int i, Reminder r) {reminderList.set(i,r);}
+
 }
