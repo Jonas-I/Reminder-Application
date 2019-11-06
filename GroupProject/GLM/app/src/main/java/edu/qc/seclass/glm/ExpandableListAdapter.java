@@ -22,6 +22,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<ReminderList> listDataHeader;
     Activity mainActivity;
+    public static boolean editButtonPressed = false;
 
     private final Set<Pair<Long, Long>> tagCheckedItems = new HashSet<>();
 
@@ -112,15 +113,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 notifyDataSetChanged();
             }
         });
-        Button editBtn = (Button) convertView.findViewById(R.id.btnEdit);
+        final Button editBtn = (Button) convertView.findViewById(R.id.btnEdit);
         editBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
-                Intent intent = new Intent(mainActivity, EditReminderActivity.class);
-                intent.putExtra("SELECTED_REMINDER", selectedReminder);
-                intent.putExtra("LIST", groupPosition);
-                intent.putExtra("REMINDER",childPosition);
-                mainActivity.startActivityForResult(intent,1);
+                if (!editButtonPressed) {
+                    editButtonPressed = true;
+                    Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+                    Intent intent = new Intent(mainActivity, EditReminderActivity.class);
+                    intent.putExtra("SELECTED_REMINDER", selectedReminder);
+                    intent.putExtra("LIST", groupPosition);
+                    intent.putExtra("REMINDER",childPosition);
+                    mainActivity.startActivityForResult(intent,2);
+                }
             }
         });
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);

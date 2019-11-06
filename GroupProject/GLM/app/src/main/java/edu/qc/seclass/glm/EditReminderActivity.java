@@ -41,7 +41,7 @@ public class EditReminderActivity extends Activity {
                     int child = getIntent().getIntExtra("REMINDER",0);
                     intent.putExtra("LIST", list);
                     intent.putExtra("REMINDER", child);
-                    setResult(2,intent);
+                    setResult(1,intent);
                     finish();//finishing activity
                 }
                 else showToast("Please enter values for Description and Type");

@@ -1,10 +1,11 @@
 
 package edu.qc.seclass.glm;
 
-        import android.content.Intent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
     private List<ReminderList> listDataHeader;
+    Button createButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
         displayLists();
         listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
         listView.setAdapter(listAdapter);
-
-        findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
+        createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createButton.setEnabled(false);
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
                 startActivityForResult(intent, 1);// Activity is started with requestCode 2
             }
@@ -37,25 +40,37 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createButton.setEnabled(true);
+        ExpandableListAdapter.editButtonPressed = false;
+    }
 
-
+    public static void manageButtonPresses (Button button) {
+        button.setClickable(true);
+    }
     // Call Back method  to get the Message form other Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode== 1 && resultCode == 1) { // Returning from Create Reminder activity
-            Reminder new_reminder = (Reminder) data.getParcelableExtra("NEW_REMINDER");
-            System.out.println("REMINDER RETREIVED:\nType: " + new_reminder.getType().getType() + " Description: " + new_reminder.getDescription());
-            createReminder(new_reminder);
+        if (requestCode == 1) {
+            if (resultCode == 1) { // Returning from Create Reminder activity
+                Reminder new_reminder = (Reminder) data.getParcelableExtra("NEW_REMINDER");
+                System.out.println("REMINDER RETREIVED:\nType: " + new_reminder.getType().getType() + " Description: " + new_reminder.getDescription());
+                createReminder(new_reminder);
+            }
         }
-        else if (resultCode == 2) { // Return from Edit activity
-            Reminder createdReminder = data.getParcelableExtra("NEW_REMINDER");
-            int list = data.getIntExtra("LIST",0);
-            int child = data.getIntExtra("REMINDER",0);
-            createdReminder.setChecked(listDataHeader.get(list).get(child).isChecked());
-            listDataHeader.get(list).set(child,createdReminder);
-            listAdapter.notifyDataSetChanged();
+        else if (requestCode == 2) {
+            if (resultCode == 1) { // Return from Edit activity
+                Reminder createdReminder = data.getParcelableExtra("NEW_REMINDER");
+                int list = data.getIntExtra("LIST", 0);
+                int child = data.getIntExtra("REMINDER", 0);
+                createdReminder.setChecked(listDataHeader.get(list).get(child).isChecked());
+                listDataHeader.get(list).set(child, createdReminder);
+                listAdapter.notifyDataSetChanged();
+            }
         }
         else if (requestCode == 3) { // Return from EditReminder activity
 
@@ -99,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
         homework.addReminder(new Reminder("Finish 370 Project",hw));
         homework.addReminder(new Reminder("Finish 316 Project",hw));
         listDataHeader.add(homework);
-
     }
 
 
