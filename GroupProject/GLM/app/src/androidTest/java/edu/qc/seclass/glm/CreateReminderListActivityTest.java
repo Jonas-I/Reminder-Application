@@ -46,6 +46,7 @@ public class CreateReminderListActivityTest {
     public void ValidInputTest() {
         onView(withId(R.id.inputListName)).perform(typeText("Homework"), closeSoftKeyboard());
         onView(withId(R.id.createListDone)).perform(click());
+
         //INCOMPLETE
     }
 
