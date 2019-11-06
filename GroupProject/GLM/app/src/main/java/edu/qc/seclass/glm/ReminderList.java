@@ -41,4 +41,6 @@ public class ReminderList implements Iterable<Reminder>{
         return categoryGroup;
     }
 
+    public void remove (int i) {reminderList.remove(i);}
+
 }
