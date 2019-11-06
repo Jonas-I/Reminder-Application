@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import androidx.room.Room;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,11 +19,15 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private List<ReminderList> listDataHeader;
     Button createButton;
+    private ReminderDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = Room.databaseBuilder(getApplicationContext(), ReminderDatabase.class, "database-name").build();
+
 
         listView = (ExpandableListView) findViewById(R.id.ExpandLV);
         displayLists();
@@ -100,20 +105,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Displays the list to the main activity screen
-    private void displayLists() {
+    private void displayLists() {/*
         listDataHeader = new ArrayList<>();
 
         ReminderType defaultType = new ReminderType("Reminders");
         ReminderList defaultList = new ReminderList("Reminders",defaultType);
-        defaultList.addReminder(new Reminder("Buy Groceries",defaultType));
-        defaultList.addReminder(new Reminder("Apply to jobs",defaultType));
+        Reminder r1 = new Reminder("Buy Groceries",defaultType);
+        Reminder r2 = new Reminder("Apply to jobs",defaultType);
+        defaultList.addReminder(r1);
+        defaultList.addReminder(r2);
         listDataHeader.add(defaultList);
 
         ReminderType hw = new ReminderType("Homework");
         ReminderList homework = new ReminderList("Reminders",hw);
+        Reminder r3 = new Reminder("Finish 370 Project",hw);
+        Reminder r4 = new Reminder("Finish 316 Project",hw);
         homework.addReminder(new Reminder("Finish 370 Project",hw));
         homework.addReminder(new Reminder("Finish 316 Project",hw));
-        listDataHeader.add(homework);
+        listDataHeader.add(homework);*/
+
     }
 
 

@@ -10,7 +10,12 @@ public class Reminder implements Comparable, Parcelable{
     private boolean isChecked = false;
     private Alert alert;
     private static int reminderCounter = 0;
-    private final int reminderID;
+
+    public void setReminderID(int reminderID) {
+        this.reminderID = reminderID;
+    }
+
+    private int reminderID;
 
     public Reminder(String description, ReminderType type) {
         this.description = description;
