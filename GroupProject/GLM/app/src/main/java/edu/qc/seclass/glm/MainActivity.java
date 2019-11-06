@@ -30,32 +30,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.createButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findViewById(R.id.overlay).setVisibility(View.VISIBLE);
-                findViewById(R.id.createCenterView).setVisibility(View.VISIBLE);
-                findViewById(R.id.createReminder).setVisibility(View.VISIBLE);
-                findViewById(R.id.cancel).setVisibility(View.VISIBLE);
-
-                Button cancel = (Button) findViewById(R.id.cancel);
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        findViewById(R.id.overlay).setVisibility(View.GONE);
-                        findViewById(R.id.createCenterView).setVisibility(View.GONE);
-                        findViewById(R.id.createReminder).setVisibility(View.GONE);
-                        findViewById(R.id.cancel).setVisibility(View.GONE);
-                    }
-                });
-            }
-        });
-
-        findViewById(R.id.createReminder).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.overlay).setVisibility(View.GONE);
-                findViewById(R.id.createCenterView).setVisibility(View.GONE);
-                findViewById(R.id.createReminder).setVisibility(View.GONE);
-                findViewById(R.id.cancel).setVisibility(View.GONE);
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
                 startActivityForResult(intent, 1);// Activity is started with requestCode 2
             }
