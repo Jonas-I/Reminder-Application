@@ -6,20 +6,20 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class ReminderEntity {
-    /*
-    private String description;
-    private ReminderType type;
-    private boolean isChecked = false;
-    private Alert alert;
-    private static int reminderCounter = 0;
-    private final int reminderID;*/
 
     @PrimaryKey
-    public int uid;
+    public int reminderID;
 
-    @ColumnInfo(name = "first_name")
-    public String firstName;
+    @ColumnInfo(name = "description")
+    public String description;
 
-    @ColumnInfo(name = "last_name")
-    public String lastName;
+    @ColumnInfo(name = "type")
+    public ReminderType type;
+
+    @ColumnInfo(name = "is_checked")
+    public boolean isChecked;
+
+    @ColumnInfo(name = "alert")
+    public Alert alert;
+
 }
