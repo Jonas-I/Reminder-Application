@@ -26,6 +26,7 @@
         android:paddingTop="10dp"
         android:layout_marginRight="5dp"
         android:layout_toRightOf="@id/remItem"
+        android:layout_toLeftOf="@id/btnEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
