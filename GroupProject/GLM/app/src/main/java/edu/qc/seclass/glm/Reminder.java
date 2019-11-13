@@ -1,74 +1,79 @@
 package edu.qc.seclass.glm;
 
+/*
+ * Copyright (C) 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Reminder implements Comparable, Parcelable{
+import java.util.UUID;
 
-    private String description;
-    private ReminderType type;
-    private boolean isChecked = false;
-    private Alert alert;
-    private static int reminderCounter = 0;
-    private final int reminderID;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-    public Reminder(String description, ReminderType type) {
-        this.description = description;
-        this.type = type;
-        alert = null;
-        reminderID = reminderCounter++;
-        System.out.println(reminderID + " " + reminderCounter);
-    }
+@Entity(tableName = "reminder_table",
+        foreignKeys = @ForeignKey(entity = ReminderType.class,
+                parentColumns = "type",
+                childColumns = "reminder_type",
+                onDelete = ForeignKey.CASCADE))
+public class Reminder implements Parcelable {
 
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo (name = "reminder_id")
+    private String reminderID;
 
-    public Reminder(String description, ReminderType type, Alert alert) {
-        this.description = description;
-        this.type = type;
-        this.alert = alert;
-        reminderID = reminderCounter++;
-        System.out.println(reminderID + " " + reminderCounter);
-    }
+    @ColumnInfo(name = "word")
+    private String mWord;
 
+    @ColumnInfo(name = "reminder_type")
+    private String type;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ReminderType getType() {
-        return type;
-    }
-
-    public void setType(ReminderType type) {
+    public Reminder(@NonNull String word, String type) {
+        reminderID = UUID.randomUUID().toString();
+        this.mWord = word;
         this.type = type;
     }
 
-    public boolean isChecked() {
-        return isChecked;
+    @NonNull
+    public String getWord() {
+        return this.mWord;
     }
 
-    public void setChecked(boolean checked) {
-        isChecked = checked;
+    public void setmWord(String mWord) {
+        this.mWord = mWord;
     }
 
-    public Alert getAlert() {
-        return alert;
-    }
-
-    public void setAlert(Alert alert) {
-        this.alert = alert;
-    }
-
-    public int getReminderID() {
+    public String getReminderID() {
         return reminderID;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        return this.description.compareToIgnoreCase(((Reminder)o).description);
+    public void setReminderID(String reminderID) {
+        this.reminderID = reminderID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
@@ -79,12 +84,9 @@ public class Reminder implements Comparable, Parcelable{
     // write your object's data to the passed-in Parcel
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeString(description);
-        out.writeValue(type);
-        out.writeInt(isChecked ? 1 : 0);
-        out.writeValue(alert);
-        out.writeInt(reminderCounter);
-        out.writeInt(reminderID);
+        out.writeString(reminderID);
+        out.writeString(mWord);
+        out.writeString(type);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -100,11 +102,8 @@ public class Reminder implements Comparable, Parcelable{
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private Reminder(Parcel in) {
-        description = in.readString();
-        type = (ReminderType)in.readValue(ReminderType.class.getClassLoader());
-        isChecked = (in.readInt() == 1);
-        alert = (Alert)in.readValue(Alert.class.getClassLoader());
-        reminderCounter = in.readInt();
-        reminderID = in.readInt();
+        reminderID = in.readString();
+        mWord = in.readString();
+        type = in.readString();
     }
 }

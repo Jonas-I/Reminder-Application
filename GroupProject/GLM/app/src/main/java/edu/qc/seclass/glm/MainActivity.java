@@ -1,45 +1,49 @@
-
 package edu.qc.seclass.glm;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    Button createButton;
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
     private List<ReminderList> listDataHeader;
-    Button createButton;
+    static ReminderRoomDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        db = ReminderRoomDatabase.getDatabase(getApplicationContext());
+        //mWordViewModel = new ViewModelProvider(this).get(WordViewModel.class);
         listView = (ExpandableListView) findViewById(R.id.ExpandLV);
         displayLists();
         listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
         listView.setAdapter(listAdapter);
+
         createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createButton.setEnabled(false);
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
-                startActivityForResult(intent, 1);// Activity is started with requestCode 2
+                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
-
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -47,19 +51,25 @@ public class MainActivity extends AppCompatActivity {
         ExpandableListAdapter.editButtonPressed = false;
     }
 
-    public static void manageButtonPresses (Button button) {
-        button.setClickable(true);
-    }
-    // Call Back method  to get the Message form other Activity
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == 1) { // Returning from Create Reminder activity
-                Reminder new_reminder = (Reminder) data.getParcelableExtra("NEW_REMINDER");
-                System.out.println("REMINDER RETREIVED:\nType: " + new_reminder.getType().getType() + " Description: " + new_reminder.getDescription());
-                createReminder(new_reminder);
+        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String descString = data.getStringExtra("DESCRIPTION");
+            String typeString = data.getStringExtra("TYPE");
+            ReminderType type = new ReminderType(typeString);
+            Reminder reminder = new Reminder(descString, type.getType());
+            db.reminderTypeDao().insert(type);
+            db.reminderDao().insert(reminder);
+            ReminderList newList = new ReminderList(type.getType());
+            if (listDataHeader.contains(newList)) {
+                int indexOfList = listDataHeader.indexOf(newList);
+                listDataHeader.get(indexOfList).add(reminder);
+                listAdapter.notifyDataSetChanged();
+            }
+            else {
+                newList.add(reminder);
+                listDataHeader.add(0,newList);
+                listAdapter.notifyDataSetChanged();
             }
         }
         else if (requestCode == 2) {
@@ -67,54 +77,31 @@ public class MainActivity extends AppCompatActivity {
                 Reminder createdReminder = data.getParcelableExtra("NEW_REMINDER");
                 int list = data.getIntExtra("LIST", 0);
                 int child = data.getIntExtra("REMINDER", 0);
-                createdReminder.setChecked(listDataHeader.get(list).get(child).isChecked());
+                String reminderID = createdReminder.getReminderID();
+                String desc = createdReminder.getWord();
+                db.reminderDao().updateReminderDescription(reminderID, desc);
                 listDataHeader.get(list).set(child, createdReminder);
                 listAdapter.notifyDataSetChanged();
             }
         }
-        else if (requestCode == 3) { // Return from EditReminder activity
-
-        }
-    }
-
-    private void createReminder (Reminder new_reminder) {
-        ReminderType type = new_reminder.getType();
-        ReminderList existingList = null;
-        for (ReminderList list: listDataHeader) {
-            if (list.getCategoryGroup().equals(type)) {
-                existingList = list;
-                break;
-            }
-        }
-        if (existingList != null) {
-            existingList.addReminder(new_reminder);
-            listAdapter.notifyDataSetChanged();
-        }
         else {
-            ReminderList newList = new ReminderList(new_reminder.getType().getType(), new_reminder.getType());
-            newList.addReminder(new_reminder);
-            listDataHeader.add(newList);
-            listAdapter.notifyDataSetChanged();
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG).show();
         }
-
     }
 
-    // Displays the list to the main activity screen
+    // Displays the list to the main activity screen by pulling reminders from the database
     private void displayLists() {
         listDataHeader = new ArrayList<>();
-
-        ReminderType defaultType = new ReminderType("Reminders");
-        ReminderList defaultList = new ReminderList("Reminders",defaultType);
-        defaultList.addReminder(new Reminder("Buy Groceries",defaultType));
-        defaultList.addReminder(new Reminder("Apply to jobs",defaultType));
-        listDataHeader.add(defaultList);
-
-        ReminderType hw = new ReminderType("Homework");
-        ReminderList homework = new ReminderList("Reminders",hw);
-        homework.addReminder(new Reminder("Finish 370 Project",hw));
-        homework.addReminder(new Reminder("Finish 316 Project",hw));
-        listDataHeader.add(homework);
+        List<ReminderType> typeList = db.reminderTypeDao().getAlphabetizedTypes();
+        for (ReminderType type: typeList) {
+            List<Reminder> list = db.reminderDao().getAllRemindersOfType(type.getType());
+            ReminderList reminderList = new ReminderList(type.getType());
+            for (Reminder r: list)
+                reminderList.add(r);
+            listDataHeader.add(reminderList);
+        }
     }
-
-
 }

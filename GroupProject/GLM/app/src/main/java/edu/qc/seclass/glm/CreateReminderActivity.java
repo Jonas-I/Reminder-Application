@@ -31,11 +31,10 @@ public class CreateReminderActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (isValidReminder()) {
-                    reminder = new Reminder(descString, new ReminderType(typeString));
-                    // TODO: pass reminder to to main activity
                     Intent intent=new Intent();
-                    intent.putExtra("NEW_REMINDER",reminder);
-                    setResult(1,intent);
+                    intent.putExtra("DESCRIPTION",descString);
+                    intent.putExtra("TYPE",typeString);
+                    setResult(RESULT_OK,intent);
                     finish();//finishing activity
                 }
                 else showToast("Please enter values for Description and Type");
@@ -57,10 +56,6 @@ public class CreateReminderActivity extends Activity {
         type = findViewById(R.id.inputType);
         typeString = type.getText().toString();
         return !(descString.equals("") || typeString.equals(""));
-    }
-
-    public void createReminder () {
-        System.out.println("Is Valid");
     }
 
 }

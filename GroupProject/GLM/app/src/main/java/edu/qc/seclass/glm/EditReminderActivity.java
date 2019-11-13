@@ -12,7 +12,6 @@ public class EditReminderActivity extends Activity {
 
     Reminder selectedReminder;
     EditText desc, type;
-    Alert alert;
     String descString, typeString;
 
     @Override
@@ -31,10 +30,8 @@ public class EditReminderActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (isValidReminder()) {
-                    alert = selectedReminder.getAlert();
-                    selectedReminder.setDescription(descString);
-                    selectedReminder.setType(new ReminderType(typeString));
-                    selectedReminder.setAlert(alert);
+                    selectedReminder.setmWord(descString);
+                    // dont allow them to change the type
                     Intent intent=new Intent();
                     intent.putExtra("NEW_REMINDER",selectedReminder);
                     int list = getIntent().getIntExtra("LIST",0);
@@ -52,8 +49,8 @@ public class EditReminderActivity extends Activity {
     private void populateFields () {
         desc = findViewById(R.id.editInputDescription);
         type = findViewById(R.id.editInputType);
-        desc.setText(selectedReminder.getDescription());
-        type.setText(selectedReminder.getType().getType());
+        desc.setText(selectedReminder.getWord());
+        type.setText(selectedReminder.getType());
     }
 
     public boolean isValidReminder () {

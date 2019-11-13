@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.HashSet;
@@ -44,12 +43,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return listDataHeader.get(groupPosition).getCategoryGroup().getType();
+        return listDataHeader.get(groupPosition).getType();
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return listDataHeader.get(groupPosition).get(childPosition).getDescription();
+        return listDataHeader.get(groupPosition).get(childPosition).getWord();
     }
 
     @Override
@@ -88,28 +87,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.reminder_item, null);
         }
-
-        CheckBox cbListChild = (CheckBox) convertView.findViewById(R.id.remItem);
-        final Pair<Long, Long> tag = new Pair<>(getGroupId(groupPosition), getChildId(groupPosition, childPosition));
-        cbListChild.setTag(tag);
-        cbListChild.setChecked(tagCheckedItems.contains(tag));
-        cbListChild.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
-                selectedReminder.setChecked(((CheckBox)v).isChecked());
-                final CheckBox cb = (CheckBox) v;
-                final Pair<Long, Long> tag = (Pair<Long, Long>) v.getTag();
-                if (cb.isChecked()) {
-                    tagCheckedItems.add(tag);
-                } else {
-                    tagCheckedItems.remove(tag);
-                }
-            }
-        });
         Button deleteBtn = (Button) convertView.findViewById(R.id.btnDelete);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                listDataHeader.get(groupPosition).remove(childPosition);
+                Reminder oldReminder = listDataHeader.get(groupPosition).remove(childPosition);
+                MainActivity.db.reminderDao().deleteReminderbyID(oldReminder.getReminderID());
                 notifyDataSetChanged();
             }
         });

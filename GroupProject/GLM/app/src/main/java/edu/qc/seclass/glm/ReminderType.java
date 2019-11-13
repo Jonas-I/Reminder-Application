@@ -1,25 +1,29 @@
 package edu.qc.seclass.glm;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class ReminderType implements Serializable {
+@Entity(tableName = "type_table")
+public class ReminderType {
 
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "type")
     private String type;
 
-    public ReminderType(String type) {
+    public ReminderType(@NonNull String type) {
         this.type = type;
     }
 
+    @NonNull
     public String getType() {
-        return type;
+        return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(@NonNull String type) {
         this.type = type;
     }
 
-    @Override
-    public boolean equals (Object o) {
-        return type.equalsIgnoreCase(((ReminderType)o).getType());
-    }
 }

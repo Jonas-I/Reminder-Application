@@ -1,48 +1,34 @@
 package edu.qc.seclass.glm;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 
-public class ReminderList implements Iterable<Reminder>{
+public class ReminderList extends ArrayList<Reminder>{
 
-    private ArrayList <Reminder> reminderList;
-    private ReminderType categoryGroup;
-    private String name;
+    private String type;
 
-    public ReminderList(String name, ReminderType categoryGroup) {
-        this.categoryGroup = categoryGroup;
-        this.name = name;
-        reminderList = new ArrayList<>();
+    public ReminderList (String type) {
+        super();
+        this.type = type;
     }
 
-    public void sortListByName () {
-        Collections.sort(reminderList);
+    public static void main(String[] args) {
+        ReminderList testList = new ReminderList("Type");
     }
 
-    public void addReminder (Reminder r) {
-        reminderList.add(0,r);
+    public String getType() {
+        return type;
     }
 
     @Override
-    public Iterator iterator() {
-        return reminderList.iterator();
+    public boolean equals (Object other) {
+        return this.type.equalsIgnoreCase(((ReminderList)other).getType());
     }
 
-    public int size () {
-        return reminderList.size();
+    @Override
+    public boolean add (Reminder other) {
+        super.add(0,other);
+        return true;
     }
 
-    public Reminder get (int i) {
-        return reminderList.get(i);
-    }
-
-    public ReminderType getCategoryGroup() {
-        return categoryGroup;
-    }
-
-    public void remove (int i) {reminderList.remove(i);}
-
-    public void set (int i, Reminder r) {reminderList.set(i,r);}
 
 }
