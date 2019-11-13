@@ -38,6 +38,9 @@ public interface ReminderDao {
     @Query("UPDATE reminder_table SET description = :desc WHERE reminder_id = :id")
     void updateReminderDescription(String id, String desc);
 
+    @Query("UPDATE reminder_table SET is_checked = :checked WHERE reminder_id = :id")
+    void setChecked(String id, boolean checked);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Reminder reminder);
 

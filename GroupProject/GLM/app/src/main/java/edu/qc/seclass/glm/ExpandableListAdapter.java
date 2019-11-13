@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.HashSet;
@@ -87,6 +88,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.reminder_item, null);
         }
+        CheckBox cbListChild = (CheckBox) convertView.findViewById(R.id.remItem);
+        Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+        Reminder reminderFromDB = MainActivity.db.reminderDao().getReminderByID(selectedReminder.getReminderID());
+        selectedReminder.setChecked(reminderFromDB.isChecked());
+        cbListChild.setChecked(selectedReminder.isChecked());
+        cbListChild.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
+                selectedReminder.setChecked(((CheckBox)v).isChecked());
+                MainActivity.db.reminderDao().setChecked(selectedReminder.getReminderID(),selectedReminder.isChecked());
+            }
+        });
         Button deleteBtn = (Button) convertView.findViewById(R.id.btnDelete);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
