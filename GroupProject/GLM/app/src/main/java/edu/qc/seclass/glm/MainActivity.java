@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,18 +24,41 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private List<ReminderList> listDataHeader;
     static ReminderRoomDatabase db;
+    private NotificationManagerCompat mNotificationManagerCompat;
+    private RelativeLayout mMainRelativeLayout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mMainRelativeLayout = (RelativeLayout) findViewById(R.id.mainRelativeLayout);
         db = ReminderRoomDatabase.getDatabase(getApplicationContext());
         listView = (ExpandableListView) findViewById(R.id.ExpandLV);
         displayLists();
         listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
         listView.setAdapter(listAdapter);
+        mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
 
+        if (!areNotificationsEnabled) {
+            // Because the user took an action to create a notification, we create a prompt to let
+            // the user re-enable notifications for this application again.
+            Snackbar snackbar = Snackbar
+                    .make(
+                            mMainRelativeLayout,
+                            "You need to enable notifications for this app",
+                            Snackbar.LENGTH_LONG)
+                    .setAction("ENABLE", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Links to this app's notification settings
+                            openNotificationSettingsForApp();
+                        }
+                    });
+            snackbar.show();
+            return;
+        }
         createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        createButton.setEnabled(true);
+        if (createButton != null)
+            createButton.setEnabled(true);
         ExpandableListAdapter.editButtonPressed = false;
         ExpandableListAdapter.createButtonPressed = false;
     }
@@ -103,5 +131,17 @@ public class MainActivity extends AppCompatActivity {
                 reminderList.add(r);
             listDataHeader.add(reminderList);
         }
+    }
+
+    private void openNotificationSettingsForApp() {
+        // Links to this app's notification settings.
+        Intent intent = new Intent();
+        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        //for Android 5-7
+        intent.putExtra("app_package", getPackageName());
+        intent.putExtra("app_uid", getApplicationInfo().uid);
+        // for Android 8 and above
+        intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+        startActivity(intent);
     }
 }

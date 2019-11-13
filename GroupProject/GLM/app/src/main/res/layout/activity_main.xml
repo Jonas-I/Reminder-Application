@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     style="@style/AppTheme"
+    android:id = "@+id/mainRelativeLayout"
     android:background="#A5E3FF">
 
     <ExpandableListView
