@@ -8,27 +8,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateReminderActivity extends Activity {
+public class AddReminderToListActivity extends Activity {
 
     EditText desc, type;
     String descString, typeString;
+    Reminder reminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_reminder);
-        type = findViewById(R.id.inputType);
         findViewById(R.id.createReminderCancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(0);
-                type.setEnabled(true);
                 finish();
             }
         });
-        int request = getIntent().getIntExtra("REQUEST",1);
-        if (request == 3)
-            populateFields();
         findViewById(R.id.createReminderDone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +33,6 @@ public class CreateReminderActivity extends Activity {
                     intent.putExtra("DESCRIPTION",descString);
                     intent.putExtra("TYPE",typeString);
                     setResult(RESULT_OK,intent);
-                    type.setEnabled(true);
                     finish();//finishing activity
                 }
                 else showToast("Please enter values for Description and Type");
@@ -53,11 +48,6 @@ public class CreateReminderActivity extends Activity {
         toast.show();
     }
 
-    private void populateFields () {
-        String selectedType = getIntent().getStringExtra("TYPE");
-        type.setText(selectedType);
-        type.setEnabled(false);
-    }
 
     public boolean isValidReminder () {
         desc = findViewById(R.id.inputDescription);
@@ -68,3 +58,5 @@ public class CreateReminderActivity extends Activity {
     }
 
 }
+
+

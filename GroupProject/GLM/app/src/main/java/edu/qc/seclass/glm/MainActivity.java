@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         createButton.setEnabled(true);
         ExpandableListAdapter.editButtonPressed = false;
+        ExpandableListAdapter.createButtonPressed = false;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if ((requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE || requestCode == 3) && resultCode == RESULT_OK) {
             String descString = data.getStringExtra("DESCRIPTION");
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);

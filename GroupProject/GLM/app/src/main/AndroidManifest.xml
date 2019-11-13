@@ -29,6 +29,11 @@
             android:launchMode="singleInstance"
             android:label="@string/app_name">
         </activity>
+        <activity
+            android:name=".AddReminderToListActivity"
+            android:launchMode="singleInstance"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>
