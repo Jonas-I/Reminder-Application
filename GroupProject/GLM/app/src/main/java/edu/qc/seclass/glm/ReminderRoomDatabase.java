@@ -14,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * The fact that this has very few comments emphasizes its coolness.
  */
 
-@Database(entities = {Reminder.class, ReminderType.class}, version = 8)
+@Database(entities = {Reminder.class, ReminderType.class}, version = 1)
 public abstract class ReminderRoomDatabase extends RoomDatabase {
 
     public abstract ReminderDao reminderDao();

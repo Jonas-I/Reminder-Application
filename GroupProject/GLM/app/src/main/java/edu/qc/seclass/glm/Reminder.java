@@ -29,10 +29,14 @@ public class Reminder implements Parcelable {
     @ColumnInfo(name = "reminder_type")
     private String type;
 
+    @ColumnInfo(name = "is_checked")
+    private boolean isChecked;
+
     public Reminder(@NonNull String description, String type) {
         reminderID = UUID.randomUUID().toString();
         this.description = description;
         this.type = type;
+        isChecked = false;
     }
 
     public String getDescription() {
@@ -59,6 +63,14 @@ public class Reminder implements Parcelable {
         this.type = type;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -70,6 +82,7 @@ public class Reminder implements Parcelable {
         out.writeString(reminderID);
         out.writeString(description);
         out.writeString(type);
+        out.writeInt(isChecked ? 1 : 0);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -88,5 +101,6 @@ public class Reminder implements Parcelable {
         reminderID = in.readString();
         description = in.readString();
         type = in.readString();
+        isChecked = in.readInt() == 1;
     }
 }
