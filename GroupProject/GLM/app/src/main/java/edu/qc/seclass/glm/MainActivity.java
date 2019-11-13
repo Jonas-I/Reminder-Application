@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = ReminderRoomDatabase.getDatabase(getApplicationContext());
-        //mWordViewModel = new ViewModelProvider(this).get(WordViewModel.class);
         listView = (ExpandableListView) findViewById(R.id.ExpandLV);
         displayLists();
         listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 int list = data.getIntExtra("LIST", 0);
                 int child = data.getIntExtra("REMINDER", 0);
                 String reminderID = createdReminder.getReminderID();
-                String desc = createdReminder.getWord();
+                String desc = createdReminder.getDescription();
                 db.reminderDao().updateReminderDescription(reminderID, desc);
                 listDataHeader.get(list).set(child, createdReminder);
                 listAdapter.notifyDataSetChanged();

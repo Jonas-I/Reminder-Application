@@ -48,7 +48,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return listDataHeader.get(groupPosition).get(childPosition).getWord();
+        return listDataHeader.get(groupPosition).get(childPosition).getDescription();
     }
 
     @Override

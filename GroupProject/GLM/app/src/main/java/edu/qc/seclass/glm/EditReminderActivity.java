@@ -30,7 +30,7 @@ public class EditReminderActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (isValidReminder()) {
-                    selectedReminder.setmWord(descString);
+                    selectedReminder.setDescription(descString);
                     // dont allow them to change the type
                     Intent intent=new Intent();
                     intent.putExtra("NEW_REMINDER",selectedReminder);
@@ -49,7 +49,7 @@ public class EditReminderActivity extends Activity {
     private void populateFields () {
         desc = findViewById(R.id.editInputDescription);
         type = findViewById(R.id.editInputType);
-        desc.setText(selectedReminder.getWord());
+        desc.setText(selectedReminder.getDescription());
         type.setText(selectedReminder.getType());
     }
 

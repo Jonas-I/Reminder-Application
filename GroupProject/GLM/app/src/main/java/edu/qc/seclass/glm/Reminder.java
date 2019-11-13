@@ -1,21 +1,5 @@
 package edu.qc.seclass.glm;
 
-/*
- * Copyright (C) 2017 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -39,25 +23,24 @@ public class Reminder implements Parcelable {
     @ColumnInfo (name = "reminder_id")
     private String reminderID;
 
-    @ColumnInfo(name = "word")
-    private String mWord;
+    @ColumnInfo(name = "description")
+    private String description;
 
     @ColumnInfo(name = "reminder_type")
     private String type;
 
-    public Reminder(@NonNull String word, String type) {
+    public Reminder(@NonNull String description, String type) {
         reminderID = UUID.randomUUID().toString();
-        this.mWord = word;
+        this.description = description;
         this.type = type;
     }
 
-    @NonNull
-    public String getWord() {
-        return this.mWord;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setmWord(String mWord) {
-        this.mWord = mWord;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getReminderID() {
@@ -85,7 +68,7 @@ public class Reminder implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(reminderID);
-        out.writeString(mWord);
+        out.writeString(description);
         out.writeString(type);
     }
 
@@ -103,7 +86,7 @@ public class Reminder implements Parcelable {
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private Reminder(Parcel in) {
         reminderID = in.readString();
-        mWord = in.readString();
+        description = in.readString();
         type = in.readString();
     }
 }
