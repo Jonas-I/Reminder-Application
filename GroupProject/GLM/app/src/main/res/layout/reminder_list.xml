@@ -20,6 +20,19 @@
         android:layout_toStartOf="@id/createNewReminderButton">
     </TextView>
 
+<!--    <Button-->
+<!--        android:id="@+id/openMenuButton"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:drawableStart="@android:drawable/ic_dialog_info"-->
+<!--        android:paddingLeft="12.5dp"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--        android:background="#A5E3FF"-->
+<!--        android:focusable="false"/>-->
+
     <Button
         android:id="@+id/createNewReminderButton"
         android:layout_width="50dp"
@@ -32,6 +45,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:background="#A5E3FF"
         android:focusable="false"/>
+
 
 <!--    <View-->
 <!--        android:id="@+id/display"-->
