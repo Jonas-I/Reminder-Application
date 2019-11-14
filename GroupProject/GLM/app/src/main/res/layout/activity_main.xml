@@ -9,14 +9,16 @@
     android:id = "@+id/mainRelativeLayout"
     android:background="#A5E3FF">
 
+
     <ExpandableListView
         android:id="@+id/ExpandLV"
-        android:layout_below="@id/createButton"
+        android:layout_below="@id/searchView"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:divider="#476877"
         android:dividerHeight="2dp">
     </ExpandableListView>
+
     <View
         android:id="@+id/dividerView2"
         android:layout_width="match_parent"
@@ -28,8 +30,36 @@
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/createButton"
+        android:layout_below="@id/searchView"
         android:background="#476877"/>
+
+    <View
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#76B4D0"
+        android:foregroundGravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignTop="@id/searchView"
+        android:layout_alignBottom="@id/searchView"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="13dp"
+        android:layout_toLeftOf="@id/createButton"
+        android:background="@drawable/rounded_rectangle_shape"
+        android:drawableLeft="@drawable/ic_search"
+        android:paddingLeft="7dp"
+        android:drawablePadding="7dp"
+        android:hint="@android:string/search_go"
+        android:singleLine="true"
+        android:textColor="#31454E" />
+
 
     <Button
         android:id="@+id/createButton"
@@ -37,10 +67,9 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_alignTop="@id/searchView"
+        android:layout_alignBottom="@id/searchView"
         android:divider="#476877"
         android:dividerHeight="2dp"
         android:drawableLeft="@drawable/ic_plus"

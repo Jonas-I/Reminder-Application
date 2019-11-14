@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/createNewReminderButton"
+        android:title="Create New Reminder"/>
+    
+    <item
+        android:id="@+id/editReminderName"
+        android:title="Edit List"/>
+
+    <item
+        android:id="@+id/deleteListButton"
+        android:title="Delete List"/>
+
+
+</menu>
