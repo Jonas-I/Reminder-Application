@@ -1,32 +1,20 @@
 package edu.qc.seclass.glm;
 
-import android.support.test.espresso.intent.Intents;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(JUnit4.class)
 public class CreateReminderActivityTest {
 
-    @Rule
+    /*@Rule
     public ActivityTestRule<CreateReminderActivity> mActivityTestRule = new ActivityTestRule<>(CreateReminderActivity.class);
 
     @Rule
@@ -64,7 +52,7 @@ public class CreateReminderActivityTest {
         // INCOMPLETE
     }
 
-    @Test
+    /*@Test
     public void InvalidInputTest1() {
         onView(withId(R.id.createReminderDone)).perform(click());
         onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
@@ -83,4 +71,4 @@ public class CreateReminderActivityTest {
         onView(withId(R.id.createReminderDone)).perform(click());
         onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
-}
+}*/

@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class ReminderListTest {
 
-    private ReminderList reminderlist;
+    /*private ReminderList reminderlist;
     private String name;
     private ReminderType category;
 
@@ -46,5 +46,5 @@ public class ReminderListTest {
         assertEquals(reminder1 ,ri.next());
         assertEquals(reminder3 ,ri.next());
 
-    }
+    }*/
 }

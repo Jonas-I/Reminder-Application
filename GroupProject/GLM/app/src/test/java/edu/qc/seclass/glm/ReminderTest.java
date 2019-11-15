@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class ReminderTest {
 
-    private Reminder reminder;
+    /*private Reminder reminder;
     private Alert alert;
     private Alert rAlert;
     private Reminder reminderAlert1;
@@ -191,5 +191,5 @@ public class ReminderTest {
     @Test
     public void getReminderID3() {
         assertEquals(5, reminderAlert2.getReminderID());
-    }
+    }*/
 }
