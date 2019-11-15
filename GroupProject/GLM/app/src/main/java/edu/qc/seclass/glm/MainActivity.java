@@ -1,5 +1,7 @@
 package edu.qc.seclass.glm;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,26 +42,21 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
 
-        if (!areNotificationsEnabled) {
-            // Because the user took an action to create a notification, we create a prompt to let
-            // the user re-enable notifications for this application again.
-            Snackbar snackbar = Snackbar
-                    .make(
-                            mMainRelativeLayout,
-                            "You need to enable notifications for this app",
-                            Snackbar.LENGTH_LONG)
-                    .setAction("ENABLE", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // Links to this app's notification settings
-                            openNotificationSettingsForApp();
-                        }
-                    });
-            snackbar.show();
-            return;
-        }
+        if (!areNotificationsEnabled)
+            enableNotifications();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)+2);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)+2);
+        Intent intent1 = new Intent(MainActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+
         createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +129,24 @@ public class MainActivity extends AppCompatActivity {
                 reminderList.add(r);
             listDataHeader.add(reminderList);
         }
+    }
+
+    private void enableNotifications () {
+        // Because the user took an action to create a notification, we create a prompt to let
+        // the user re-enable notifications for this application again.
+        Snackbar snackbar = Snackbar
+                .make(
+                        mMainRelativeLayout,
+                        "You need to enable notifications for this app",
+                        Snackbar.LENGTH_LONG)
+                .setAction("ENABLE", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Links to this app's notification settings
+                        openNotificationSettingsForApp();
+                    }
+                });
+        snackbar.show();
     }
 
     private void openNotificationSettingsForApp() {
