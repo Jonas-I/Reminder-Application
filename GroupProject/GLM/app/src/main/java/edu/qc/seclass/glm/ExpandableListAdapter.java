@@ -20,11 +20,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -105,6 +102,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 //                }
 //            }
 //        });
+        final CheckBox checkAll = convertView.findViewById(R.id.checkAllButton);
+        checkAll.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                boolean isChecked = checkAll.isChecked();
+                ReminderList reminderList = listDataHeader.get(groupPosition);
+                for (Reminder r: reminderList) {
+                    String id = r.getReminderID();
+                    MainActivity.db.reminderDao().setChecked(id, isChecked);
+                    r.setChecked(isChecked);
+                }
+                notifyDataSetChanged();
+            }
+        });
         final TextView listTitle = (TextView) convertView.findViewById(R.id.remListTitle);
         final EditText editListTitle = (EditText) convertView.findViewById(R.id.editRemListTitle);
 
