@@ -1,74 +1,70 @@
 package edu.qc.seclass.glm;
 
-import org.junit.After;
+import androidx.test.rule.ActivityTestRule;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import static junit.framework.TestCase.assertEquals;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @RunWith(JUnit4.class)
 public class CreateReminderActivityTest {
 
-    /*@Rule
-    public ActivityTestRule<CreateReminderActivity> mActivityTestRule = new ActivityTestRule<>(CreateReminderActivity.class);
-
     @Rule
-    public ActivityTestRule<MainActivity> main = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mainRule = new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void setUp() {
-        Intents.init();
-    }
-
-    @After
-    public void tearDown() {
-        Intents.release();
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId((R.id.createReminderTitle))).check(matches(withText("Create Reminder")));
     }
 
     @Test
     public void CancelButtonTest() {
         onView(withId(R.id.createReminderCancel)).perform(click());
-        assertEquals(0, mActivityTestRule.getActivityResult().getResultCode());
-        //intended(hasComponent(MainActivity.class.getName())); // NOT WORKING
+        onView(withId(R.id.ExpandLV)).check(matches(isDisplayed()));
     }
 
     @Test
     public void ValidInputTest() {
-        onView(withId(R.id.inputType)).perform(typeText("Reminders"), closeSoftKeyboard());
-        onView(withId(R.id.inputDescription)).perform(typeText("Do Testing"), closeSoftKeyboard());
+        onView(withId(R.id.inputType)).perform(typeText("Homework"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Do Testing for 370"), closeSoftKeyboard());
         onView(withId(R.id.createReminderDone)).perform(click());
-        assertEquals(1, mActivityTestRule.getActivityResult().getResultCode());
-        /*Reminder reminder = new Reminder("Do Testing", new ReminderType("Reminders"));
-        Intent resultData = new Intent();
-        resultData.putExtra("NEW_REMINDER", reminder);
-        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
-        main.launchActivity(resultData);
-         */
-        // INCOMPLETE
+        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Homework")))).perform(click());
     }
 
-    /*@Test
+    @Test
     public void InvalidInputTest1() {
         onView(withId(R.id.createReminderDone)).perform(click());
-        onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
     @Test
     public void InvalidInputTest2() {
         onView(withId(R.id.inputType)).perform(typeText("Homework"), closeSoftKeyboard());
         onView(withId(R.id.createReminderDone)).perform(click());
-        onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
     @Test
     public void InvalidInputTest3() {
         onView(withId(R.id.inputDescription)).perform(typeText("CS 370 HW"), closeSoftKeyboard());
         onView(withId(R.id.createReminderDone)).perform(click());
-        onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("Please enter values for Description and Type")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
-}*/
+}

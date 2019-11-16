@@ -11,40 +11,30 @@ import static org.junit.Assert.*;
 
 public class ReminderListTest {
 
-    /*private ReminderList reminderlist;
-    private String name;
-    private ReminderType category;
+    private ReminderList reminderlist;
 
     @Before
     public void setUp() throws Exception {
-        name = "Weekly Reminders";
-        category = new ReminderType("Shopping");
-        reminderlist = new ReminderList(name, category);
+        reminderlist = new ReminderList("Shopping");
     }
 
     @After
     public void tearDown() throws Exception {
-        name = null;
-        category = null;
         reminderlist = null;
     }
 
     @Test
-    public void sortListByNameAndAddReminder() {
-        Alert alert1 = new Alert(new Date(),"Doctor's Appointment at 6PM");
-        Alert alert2 = new Alert(new Date(),"Therapist Appointment at 2PM", Repeat.WEEKLY);
-        ReminderType type = new ReminderType("Appointment");
-        Reminder reminder1 = new Reminder("Doctor's Appointment", type);
-        Reminder reminder2 = new Reminder("Checkup Appointment", type, alert1);
-        Reminder reminder3 = new Reminder("Therapist's Appointment", type, alert2);
-        reminderlist.addReminder(reminder1);
-        reminderlist.addReminder(reminder2);
-        reminderlist.addReminder(reminder3);
-        reminderlist.sortListByName();
+    public void addReminderToASpecificList() {
+        Reminder reminder1 = new Reminder("Doctor's Appointment", "Appointment");
+        Reminder reminder2 = new Reminder("Checkup Appointment", "Appointment");
+        Reminder reminder3 = new Reminder("Therapist's Appointment", "Appointment");
+        reminderlist.add(reminder1);
+        reminderlist.add(reminder2);
+        reminderlist.add(reminder3);
         Iterator ri = reminderlist.iterator();
+        assertEquals(reminder3 ,ri.next());
         assertEquals(reminder2 ,ri.next());
         assertEquals(reminder1 ,ri.next());
-        assertEquals(reminder3 ,ri.next());
 
-    }*/
+    }
 }

@@ -1,63 +1,42 @@
 package edu.qc.seclass.glm;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.StringStartsWith.startsWith;
+
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
-    /*@Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    @Rule
+    public ActivityTestRule<MainActivity> mainRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Before
-    public void setUp() {
-        Intents.init();
-    }
-
-    @After
-    public void tearDown() {
-        Intents.release();
-    }*/
-
-    /*
     @Test
-    public void CreateButtonTest() {
+    public void AddReminderListTestInMain() {
         onView(withId(R.id.createButton)).perform(click());
-        onView(withId(R.id.overlay)).check(matches(isDisplayed()));
-        onView(withId(R.id.createCenterView)).check(matches(isDisplayed()));
-        onView(withId(R.id.createReminder)).check(matches(isDisplayed()));
-        onView(withId(R.id.createList)).check(matches(isDisplayed()));
-        onView(withId(R.id.cancel)).check(matches(isDisplayed()));
-    }
-    */
+        onView(withId(R.id.inputType)).perform(typeText("Appointments"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Doctor's Appointment"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
 
-    /*@Test
-    public void CreateReminderActivityLaunchTest() {
-        onView(withId(R.id.createButton)).perform(click());
-        intended(hasComponent(CreateReminderActivity.class.getName()));
-    }*/
-/*
-    @Test
-    public void CreateReminderListActivityLaunchTest() {
-        onView(withId(R.id.createButton)).perform(click());
-        onView(withId(R.id.createList)).perform(click());
-        intended(hasComponent(CreateReminderListActivity.class.getName()));
+        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Appointments")))).perform(click());
+        onView(allOf(withId(R.id.remItemName), withText(startsWith("Doctor's Appointment")))).perform(click());
     }
 
     @Test
-    public void CreateButtonCancelTest() {
+    public void createButtonOpensCreateReminderActivity() {
         onView(withId(R.id.createButton)).perform(click());
-        onView(withId(R.id.cancel)).perform(click());
-        onView(withId(R.id.overlay)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.createCenterView)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.createReminder)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.createList)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.cancel)).check(matches(not(isDisplayed())));
+        onView(withId((R.id.createReminderTitle))).check(matches(withText("Create Reminder")));
     }
-*/
 }

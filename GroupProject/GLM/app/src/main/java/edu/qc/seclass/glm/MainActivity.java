@@ -1,16 +1,19 @@
 package edu.qc.seclass.glm;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -24,7 +27,7 @@ import androidx.core.app.NotificationManagerCompat;
 /*
         TODO:   (Jonas)
                 Search Bar                                  [ ]
-                    - Pad searching from displaying @ end    [ ]
+                    - Pad searching from displaying @ end    [X]
                     - Implementation                         [ ]
                     - Visual                                 [X]
                 Dropdown Menu for Types                     [ ]
@@ -43,11 +46,10 @@ public class MainActivity extends AppCompatActivity {
     Button createButton;
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
-    private List<ReminderList> listDataHeader;
+    private ArrayList<ReminderList> listDataHeader;
     static ReminderRoomDatabase db;
     private NotificationManagerCompat mNotificationManagerCompat;
     private RelativeLayout mMainRelativeLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +62,65 @@ public class MainActivity extends AppCompatActivity {
         listAdapter = new ExpandableListAdapter(this, listDataHeader, MainActivity.this);
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
 
-        if (!areNotificationsEnabled)
-            enableNotifications();
+//        EditText searchInput = (EditText) findViewById(R.id.searchInput);
+//
+//        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                if (event.getAction() == KeyEvent.KEYCODE_ENTER) {
+//                    listAdapter.filter(v.getText().toString());
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+        SearchManager sm = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView search = (SearchView) findViewById(R.id.searchInput);
+        search.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
+        search.setIconifiedByDefault(false);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                listAdapter.filter(query);
+                expandAll();
+                return false;
+            }
 
-        scheduleNotification(getNotification("10 second delay"), 10000);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                listAdapter.filter(newText);
+                expandAll();
+                return false;
+            }
+        });
+        search.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                listAdapter.filter("");
+                return false;
+            }
+        });
 
-
+        if (!areNotificationsEnabled) {
+            // Because the user took an action to create a notification, we create a prompt to let
+            // the user re-enable notifications for this application again.
+            Snackbar snackbar = Snackbar
+                    .make(
+                            mMainRelativeLayout,
+                            "You need to enable notifications for this app",
+                            Snackbar.LENGTH_LONG)
+                    .setAction("ENABLE", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Links to this app's notification settings
+                            openNotificationSettingsForApp();
+                        }
+                    });
+            snackbar.show();
+            return;
+        }
         createButton = findViewById(R.id.createButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,24 +195,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void enableNotifications () {
-        // Because the user took an action to create a notification, we create a prompt to let
-        // the user re-enable notifications for this application again.
-        Snackbar snackbar = Snackbar
-                .make(
-                        mMainRelativeLayout,
-                        "You need to enable notifications for this app",
-                        Snackbar.LENGTH_LONG)
-                .setAction("ENABLE", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // Links to this app's notification settings
-                        openNotificationSettingsForApp();
-                    }
-                });
-        snackbar.show();
-    }
-
     private void openNotificationSettingsForApp() {
         // Links to this app's notification settings.
         Intent intent = new Intent();
@@ -173,24 +207,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void scheduleNotification(Notification notification, int delay) {
-
-        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long futureInMillis = SystemClock.elapsedRealtime() + delay;
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
-    }
-
-    private Notification getNotification(String content) {
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Scheduled Notification");
-        builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.icon);
-        return builder.build();
+    public void expandAll() {
+        int s = listAdapter.getGroupCount();
+        for (int i = 0; i < s; i++) {
+            listView.expandGroup(i);
+        }
     }
 
 }

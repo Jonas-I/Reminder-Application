@@ -5,10 +5,17 @@ import java.util.ArrayList;
 public class ReminderList extends ArrayList<Reminder>{
 
     private String type;
+    ArrayList<Reminder> reminderList = new ArrayList<>();
 
     public ReminderList (String type) {
         super();
         this.type = type;
+    }
+
+    public ReminderList(String type, ArrayList<Reminder> reminderList){
+        super();
+        this.type = type;
+        this.reminderList = reminderList;
     }
 
     public static void main(String[] args) {
@@ -17,6 +24,18 @@ public class ReminderList extends ArrayList<Reminder>{
 
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public ArrayList<Reminder> getReminderList() {
+        return reminderList;
+    }
+
+    public void setReminderList(ArrayList<Reminder> reminderList) {
+        this.reminderList = reminderList;
     }
 
     @Override
