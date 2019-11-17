@@ -228,6 +228,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         });
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);
         tvListChild.setText(childText);
+        TextView alertText = convertView.findViewById(R.id.remAlert);
+        String alertID = listDataHeader.get(groupPosition).get(childPosition).getAlertID();
+        if (alertID != null) {
+            Alert alert = MainActivity.db.alertDao().getAlertByID(alertID);
+            alertText.setText(alert.getAlertTime().toString());
+        }
         return convertView;
     }
 

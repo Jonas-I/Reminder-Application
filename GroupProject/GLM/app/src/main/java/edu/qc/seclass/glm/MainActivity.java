@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -150,10 +151,15 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             String descString = data.getStringExtra("DESCRIPTION");
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);
-            Reminder reminder = new Reminder(descString, type.getType());
+            Alert testAlert = new Alert(new Date(System.currentTimeMillis() + 10000));
+            db.alertDao().insert(testAlert);
+            Reminder reminder = new Reminder(descString, type.getType(),testAlert.getAlertID());
             db.reminderTypeDao().insert(type);
             db.reminderDao().insert(reminder);
             ReminderList newList = new ReminderList(type.getType());
+            Calendar alertTime = Calendar.getInstance();
+            alertTime.setTime(testAlert.getAlertTime());
+            startAlarm(alertTime);
             if (listDataHeader.contains(newList)) {
                 int indexOfList = listDataHeader.indexOf(newList);
                 listDataHeader.get(indexOfList).add(reminder);
