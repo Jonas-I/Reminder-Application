@@ -1,6 +1,7 @@
 package edu.qc.seclass.glm;
 
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 public class CreateReminderActivity extends Activity {
 
@@ -62,19 +65,32 @@ public class CreateReminderActivity extends Activity {
         final View dtOverlay = (View) findViewById(R.id.dateTimeOverlay);
         final TimePicker timePicker = findViewById(R.id.inputTime);
         final DatePicker datePicker = findViewById(R.id.inputDate);
-
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        final TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                String am_pm = "";
+                Calendar datetime = Calendar.getInstance();
+                datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                datetime.set(Calendar.MINUTE, selectedMinute);
+                if (datetime.get(Calendar.AM_PM) == Calendar.AM)
+                    am_pm = "AM";
+                else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
+                    am_pm = "PM";
+                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
+                time.setText(strHrsToShow + ":" + selectedMinute + " " + am_pm);
+            }
+        }, hour, minute, false);//Yes 24 hour time
         // --TIME-- Clicking on the Time Button opens up the Time Picker
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dtOverlay.setVisibility(View.VISIBLE);
-                dtBorderListView.setVisibility(View.VISIBLE);
-                timePicker.setVisibility(View.VISIBLE);
-                cancel.setVisibility(View.GONE);
-                done.setVisibility(View.GONE);
-                timeDone.setVisibility(View.VISIBLE);
-                timeCancel.setVisibility(View.VISIBLE);
+                mTimePicker.show();
+
 
             }
         });
@@ -174,5 +190,7 @@ public class CreateReminderActivity extends Activity {
         typeString = type.getText().toString();
         return !(descString.equals("") || typeString.equals(""));
     }
+
+
 
 }
