@@ -6,10 +6,12 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -20,9 +22,9 @@ public class CreateReminderActivity extends Activity {
 
     EditText desc, type;
     String descString, typeString, dateText = "", timeText = "";
-    Button dateButton;
     Calendar reminderDate;
     boolean dateSet = false, timeSet = false;
+    Button dateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,44 @@ public class CreateReminderActivity extends Activity {
                         reminderDate.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        final Button repeatBtn = (Button) findViewById(R.id.inputRepeatButton);
+        repeatBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(CreateReminderActivity.this, repeatBtn);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_repeat_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.Never:
+                                repeatBtn.setText("Never");
+                                return true;
+                            case R.id.Once:
+                                repeatBtn.setText("Once");
+                                return true;
+                            case R.id.Daily:
+                                repeatBtn.setText("Daily");
+                                return true;
+                            case R.id.Weekly:
+                                repeatBtn.setText("Weekly");
+                                return true;
+                            case R.id.Monthly:
+                                repeatBtn.setText("Monthly");
+                                return true;
+                            case R.id.Yearly:
+                                repeatBtn.setText("Yearly");
+                                return true;
+                        }
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+            }
+        });
+
     }
 
     private void showToast (String message) {
