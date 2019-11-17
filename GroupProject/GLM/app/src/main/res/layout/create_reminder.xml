@@ -298,9 +298,10 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:background="@null"
-        android:gravity="center|center_horizontal"
+        android:foregroundGravity="top"
         android:textSize="13dp"
         android:visibility="gone" />
 
