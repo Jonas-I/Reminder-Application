@@ -137,38 +137,65 @@
         android:text="Time:"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:onClick="showTimePickerDialog"/>
 
-    <EditText
-        android:id="@+id/inputTime"
+    <Button
+        android:id="@+id/inputTimeButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/lineView3"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/createTime"
-        android:background="@null"
+        android:background="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
         android:gravity="center_vertical"
         android:hint="Set a time"
         android:inputType="datetime"
         android:paddingTop="2dp"
         android:textSize="13dp" />
 
+    <Button
+        android:id="@+id/inputDateButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/inputTimeButton"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/createTime"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="Set a date"
+        android:paddingTop="2dp"
+        android:textSize="13dp" />
+
+
+
     <View
         android:id="@+id/lineView4"
         android:layout_width="match_parent"
-        android:layout_below="@id/createTime"
+        android:layout_below="@id/inputDateButton"
         android:layout_height="2dp"
         android:background="#5E8DA2"
         android:layout_toRightOf="@id/createAlert"
         android:layout_marginLeft="10dp"/>
+    <View
+        android:id="@+id/lineView6"
+        android:layout_width="match_parent"
+        android:layout_below="@id/inputTimeButton"
+        android:layout_height="2dp"
+        android:background="#5E8DA2"
+        android:layout_toRightOf="@id/createTime"
+        android:layout_marginLeft="0dp"/>
 
     <!--Location-->
     <TextView
         android:id="@+id/createLocation"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@id/createTime"
+        android:layout_below="@id/inputDateButton"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
@@ -182,7 +209,7 @@
         android:id="@+id/inputLocation"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/createTime"
+        android:layout_below="@id/inputDateButton"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/createLocation"
@@ -228,7 +255,8 @@
         android:layout_marginRight="1dp"
         android:text="Cancel"
         android:textColor="#CA6A6A"
-        android:background="#76B4D0"/>
+        android:background="#76B4D0"
+        android:visibility="visible"/>
 
     <Button
         android:id="@+id/createReminderDone"
@@ -238,11 +266,103 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="1dp"
-
         android:text="Done"
         android:textStyle="bold"
         android:textColor="#AEE0B6"
-        android:background="#76B4D0"/>
+        android:background="#76B4D0"
+        android:visibility="visible"/>
+
+    <View
+        android:id="@+id/dateTimeOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:background="#A5E3FF"
+        android:visibility="gone"/>
+    <TimePicker
+        android:id="@+id/inputTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        style="?android:attr/borderlessButtonStyle"
+        android:gravity="center_vertical"
+        android:hint="Set a time"
+        android:inputType="datetime"
+        android:paddingTop="2dp"
+        android:textSize="13dp"
+        android:visibility="gone"/>
+
+    <DatePicker
+        android:id="@+id/inputDate"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:gravity="center|center_horizontal"
+        android:textSize="13dp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/dtBorderListView"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:background="#5E8DA2"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/timeDone"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/centerView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="1dp"
+        android:background="#76B4D0"
+        android:text="Set Time"
+        android:textColor="#AEE0B6"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    <Button
+        android:id="@+id/timeCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/centerView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="1dp"
+        android:text="Cancel"
+        android:textColor="#CA6A6A"
+        android:background="#76B4D0"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/dateDone"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/centerView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="1dp"
+        android:background="#76B4D0"
+        android:text="Set Date"
+        android:textColor="#AEE0B6"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    <Button
+        android:id="@+id/dateCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/centerView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="1dp"
+        android:text="Cancel"
+        android:textColor="#CA6A6A"
+        android:background="#76B4D0"
+        android:visibility="gone"/>
 
 
 
