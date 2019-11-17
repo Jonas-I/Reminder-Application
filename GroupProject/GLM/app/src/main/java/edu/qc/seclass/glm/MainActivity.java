@@ -1,6 +1,9 @@
 package edu.qc.seclass.glm;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.SearchManager;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,15 +12,19 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.DialogFragment;
 
 /*
         TODO:   (Jonas)
@@ -35,7 +42,7 @@ import androidx.core.app.NotificationManagerCompat;
                 Delete List if no Reminder Lists Exist
                 Default Reminder Types
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
     Button createButton;
@@ -58,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
+        DialogFragment timePicker = new TimePickerFragment();
+        timePicker.show(getSupportFragmentManager(), "time picker");
 
 //        EditText searchInput = (EditText) findViewById(R.id.searchInput);
 //
@@ -142,10 +151,15 @@ public class MainActivity extends AppCompatActivity {
             String descString = data.getStringExtra("DESCRIPTION");
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);
-            Reminder reminder = new Reminder(descString, type.getType());
+            Alert testAlert = new Alert(new Date(System.currentTimeMillis() + 10000));
+            db.alertDao().insert(testAlert);
+            Reminder reminder = new Reminder(descString, type.getType(),testAlert.getAlertID());
             db.reminderTypeDao().insert(type);
             db.reminderDao().insert(reminder);
             ReminderList newList = new ReminderList(type.getType());
+            Calendar alertTime = Calendar.getInstance();
+            alertTime.setTime(testAlert.getAlertTime());
+            startAlarm(alertTime);
             if (listDataHeader.contains(newList)) {
                 int indexOfList = listDataHeader.indexOf(newList);
                 listDataHeader.get(indexOfList).add(reminder);
@@ -209,4 +223,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void startAlarm(Calendar c) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1);
+        }
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+        startAlarm(c);
+    }
 }

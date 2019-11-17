@@ -30,25 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!--This is the description of the reminder-->
-    <TextView
-        android:id="@+id/remDescription"
-        android:textSize="12dp"
-        android:textColor="#476877"
-        android:layout_marginRight="5dp"
-        android:layout_below="@id/remItemName"
-        android:layout_toRightOf="@id/remItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/btnEdit"/>
-
     <!--This should include the location/time for an ALERT-->
     <TextView
         android:id="@+id/remAlert"
         android:textSize="12dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:textColor="#476877"
-        android:layout_below="@id/remDescription"
+        android:layout_below="@id/remItemName"
         android:layout_marginRight="5dp"
         android:layout_toRightOf="@id/remItem"
         android:layout_toLeftOf="@id/btnEdit"

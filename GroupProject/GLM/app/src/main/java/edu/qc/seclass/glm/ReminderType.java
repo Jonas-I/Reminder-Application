@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "type_table")
-public class ReminderType {
+public class ReminderType{
 
     @PrimaryKey
     @NonNull

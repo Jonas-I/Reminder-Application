@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /**
@@ -14,11 +15,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * The fact that this has very few comments emphasizes its coolness.
  */
 
-@Database(entities = {Reminder.class, ReminderType.class}, version = 1)
+@Database(entities = {Reminder.class, ReminderType.class, Alert.class}, version = 2)
+@TypeConverters({DateConverter.class})
 public abstract class ReminderRoomDatabase extends RoomDatabase {
 
     public abstract ReminderDao reminderDao();
     public abstract ReminderTypeDao reminderTypeDao();
+    public abstract AlertDao alertDao();
 
     // marking the instance as volatile to ensure atomic access to the variable
     private static volatile ReminderRoomDatabase INSTANCE;

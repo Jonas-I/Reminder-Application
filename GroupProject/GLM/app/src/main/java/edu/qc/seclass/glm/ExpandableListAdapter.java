@@ -38,7 +38,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public ExpandableListAdapter(Context context, ArrayList<ReminderList> listDataHeader, Activity mainActivity) {
         this.context = context;
         this.listDataHeader = new ArrayList<>();
-        this.listDataHeader.addAll(listDataHeader);
+
+        //this.listDataHeader.addAll(listDataHeader);
+        //SHOULD BE:
+        this.listDataHeader = listDataHeader;
+
         this.mainActivity = mainActivity;
         this.original = new ArrayList<>();
         this.original.addAll(listDataHeader);
@@ -224,6 +228,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         });
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);
         tvListChild.setText(childText);
+        TextView alertText = convertView.findViewById(R.id.remAlert);
+        String alertID = listDataHeader.get(groupPosition).get(childPosition).getAlertID();
+        if (alertID != null) {
+            Alert alert = MainActivity.db.alertDao().getAlertByID(alertID);
+            alertText.setText(alert.getAlertTime().toString());
+        }
         return convertView;
     }
 

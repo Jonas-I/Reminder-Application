@@ -2,23 +2,48 @@ package edu.qc.seclass.glm;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "alert_table")
 public class Alert implements Serializable {
 
-    private Date alertTime;
-    private String message;
-    private Repeat repeat;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "alert_id")
+    private String alertID;
 
-    public Alert(Date alertTime, String message, Repeat repeat) {
+    @ColumnInfo(name = "time")
+    private Date alertTime;
+
+    @ColumnInfo(name = "repeat")
+    private String repeat;
+
+    public Alert(Date alertTime, String repeat) {
+        alertID = UUID.randomUUID().toString();
         this.alertTime = alertTime;
-        this.message = message;
         this.repeat = repeat;
     }
 
-    public Alert(Date alertTime, String message) {
+    @Ignore
+    public Alert(Date alertTime) {
+        alertID = UUID.randomUUID().toString();
         this.alertTime = alertTime;
-        this.message = message;
-        this.repeat = Repeat.NEVER;
+        this.repeat = "NEVER";
+    }
+
+    @NonNull
+    public String getAlertID() {
+        return alertID;
+    }
+
+    public void setAlertID(@NonNull String alertID) {
+        this.alertID = alertID;
     }
 
     public Date getAlertTime() {
@@ -29,23 +54,11 @@ public class Alert implements Serializable {
         this.alertTime = alertTime;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Repeat getRepeat() {
+    public String getRepeat() {
         return repeat;
     }
 
-    public void setRepeat(Repeat repeat) {
+    public void setRepeat(String repeat) {
         this.repeat = repeat;
     }
-}
-
-enum Repeat {
-    NEVER, DAILY, WEEKLY, MONTHLY, ANNUALLY
 }

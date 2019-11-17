@@ -9,13 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "reminder_table",
-        foreignKeys = @ForeignKey(entity = ReminderType.class,
-                parentColumns = "type",
-                childColumns = "reminder_type",
-                onDelete = ForeignKey.CASCADE))
+        foreignKeys = {
+                @ForeignKey(entity = ReminderType.class,
+                    parentColumns = "type",
+                    childColumns = "reminder_type",
+                    onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = Alert.class,
+                        parentColumns = "alert_id",
+                        childColumns = "alert_id",
+                        onDelete = ForeignKey.CASCADE)})
 public class Reminder implements Parcelable {
 
     @PrimaryKey
@@ -32,11 +38,24 @@ public class Reminder implements Parcelable {
     @ColumnInfo(name = "is_checked")
     private boolean isChecked;
 
+    @ColumnInfo(name = "alert_id")
+    private String alertID;
+
     public Reminder(@NonNull String description, String type) {
         reminderID = UUID.randomUUID().toString();
         this.description = description;
         this.type = type;
         isChecked = false;
+        this.alertID = null;
+    }
+
+    @Ignore
+    public Reminder(@NonNull String description, String type, String alertID) {
+        reminderID = UUID.randomUUID().toString();
+        this.description = description;
+        this.type = type;
+        isChecked = false;
+        this.alertID = alertID;
     }
 
     public String getDescription() {
@@ -71,6 +90,14 @@ public class Reminder implements Parcelable {
         isChecked = checked;
     }
 
+    public String getAlertID() {
+        return alertID;
+    }
+
+    public void setAlertID(String alertID) {
+        this.alertID = alertID;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -83,6 +110,7 @@ public class Reminder implements Parcelable {
         out.writeString(description);
         out.writeString(type);
         out.writeInt(isChecked ? 1 : 0);
+        out.writeString(alertID);
     }
 
     // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
@@ -102,5 +130,6 @@ public class Reminder implements Parcelable {
         description = in.readString();
         type = in.readString();
         isChecked = in.readInt() == 1;
+        alertID = in.readString();
     }
 }
