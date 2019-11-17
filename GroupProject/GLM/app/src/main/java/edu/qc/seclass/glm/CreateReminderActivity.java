@@ -13,17 +13,16 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.Locale;
-
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class CreateReminderActivity extends Activity {
 
     EditText desc, type;
-    String descString, typeString;
+    String descString, typeString, dateText = "", timeText = "";
     Button dateButton;
-    Calendar myCalendar;
+    Calendar reminderDate;
+    boolean dateSet = false, timeSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,12 @@ public class CreateReminderActivity extends Activity {
                     Intent intent=new Intent();
                     intent.putExtra("DESCRIPTION",descString);
                     intent.putExtra("TYPE",typeString);
+                    if (dateSet && timeSet) {
+                        intent.putExtra("REMINDER_CALENDAR", reminderDate);
+                        intent.putExtra("FORMATTED_DATE",dateText);
+                        intent.putExtra("FORMATTED_TIME",timeText);
+                    }
+                    else intent.putExtra("REMINDER_CALENDAR",(Calendar)null);
                     setResult(RESULT_OK,intent);
                     type.setEnabled(true);
                     finish();//finishing activity
@@ -56,9 +61,9 @@ public class CreateReminderActivity extends Activity {
             }
         });
 
-        Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
+        reminderDate = Calendar.getInstance();
+        int hour = reminderDate.get(Calendar.HOUR_OF_DAY);
+        int minute = reminderDate.get(Calendar.MINUTE);
 
         final Button time = (Button) findViewById(R.id.inputTimeButton);
 
@@ -66,17 +71,17 @@ public class CreateReminderActivity extends Activity {
         mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                timeSet = true;
                 String am_pm = "";
-                Calendar datetime = Calendar.getInstance();
-                datetime.set(Calendar.HOUR_OF_DAY, selectedHour);
-                datetime.set(Calendar.MINUTE, selectedMinute);
-                if (datetime.get(Calendar.AM_PM) == Calendar.AM)
+                reminderDate.set(Calendar.HOUR_OF_DAY, selectedHour);
+                reminderDate.set(Calendar.MINUTE, selectedMinute);
+                if (reminderDate.get(Calendar.AM_PM) == Calendar.AM)
                     am_pm = "AM";
-                else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
+                else if (reminderDate.get(Calendar.AM_PM) == Calendar.PM)
                     am_pm = "PM";
-                String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
-                String formattedTime = strHrsToShow + ":" + selectedMinute + " " + am_pm;
-                time.setText(formattedTime);
+                String strHrsToShow = (reminderDate.get(Calendar.HOUR) == 0) ?"12":reminderDate.get(Calendar.HOUR)+"";
+                timeText = strHrsToShow + ":" + selectedMinute + " " + am_pm;
+                time.setText(timeText);
             }
         }, hour, minute, false);
 
@@ -89,16 +94,15 @@ public class CreateReminderActivity extends Activity {
         });
 
         dateButton = (Button) findViewById(R.id.inputDateButton);
-        myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                dateSet = true;
+                reminderDate.set(Calendar.YEAR, year);
+                reminderDate.set(Calendar.MONTH, monthOfYear);
+                reminderDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
 
@@ -107,9 +111,9 @@ public class CreateReminderActivity extends Activity {
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(CreateReminderActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(CreateReminderActivity.this, date, reminderDate
+                        .get(Calendar.YEAR), reminderDate.get(Calendar.MONTH),
+                        reminderDate.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
     }
@@ -137,10 +141,9 @@ public class CreateReminderActivity extends Activity {
     }
 
     private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        dateButton.setText(sdf.format(myCalendar.getTime()));
+        SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd yyyy");
+        dateText = sdf.format(reminderDate.getTime());
+        dateButton.setText(dateText);
     }
-
 
 }

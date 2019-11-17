@@ -20,7 +20,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,8 +42,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.context = context;
         this.listDataHeader = new ArrayList<>();
 
-        //this.listDataHeader.addAll(listDataHeader);
-        //SHOULD BE:
         this.listDataHeader = listDataHeader;
 
         this.mainActivity = mainActivity;
@@ -232,12 +233,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String alertID = listDataHeader.get(groupPosition).get(childPosition).getAlertID();
         if (alertID != null) {
             Alert alert = MainActivity.db.alertDao().getAlertByID(alertID);
-            alertText.setText("Alert: " + alert.getAlertTime().toString());
+            SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd yyyy");
+            Date alertDate = alert.getAlertTime();
+            Calendar alertCal = Calendar.getInstance();
+            alertCal.setTime(alertDate);
+            String time = getTimeText(alertCal);
+            alertText.setText("Alert: " + sdf.format(alertDate) + " at " + time);
         }
         return convertView;
     }
 
-
+    private String getTimeText (Calendar reminderDate) {
+        String am_pm = "";
+        if (reminderDate.get(Calendar.AM_PM) == Calendar.AM)
+            am_pm = "AM";
+        else if (reminderDate.get(Calendar.AM_PM) == Calendar.PM)
+            am_pm = "PM";
+        String strHrsToShow = (reminderDate.get(Calendar.HOUR) == 0) ?"12":reminderDate.get(Calendar.HOUR)+"";
+        return strHrsToShow + ":" + reminderDate.get(Calendar.MINUTE) + " " + am_pm;
+    }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
