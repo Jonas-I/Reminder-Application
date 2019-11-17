@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class CreateReminderActivity extends Activity {
@@ -41,6 +44,111 @@ public class CreateReminderActivity extends Activity {
                     finish();//finishing activity
                 }
                 else showToast("Please enter values for Description and Type");
+            }
+        });
+
+
+
+        // Time and Date
+        final Button time = (Button) findViewById(R.id.inputTimeButton);
+        final Button date = (Button) findViewById(R.id.inputDateButton);
+        final Button cancel = (Button) findViewById(R.id.createReminderCancel);
+        final Button done = (Button) findViewById(R.id.createReminderDone);
+        final Button timeCancel= (Button) findViewById(R.id.timeCancel);
+        final Button timeDone = (Button) findViewById(R.id.timeDone);
+        final Button dateCancel= (Button) findViewById(R.id.dateCancel);
+        final Button dateDone = (Button) findViewById(R.id.dateDone);
+        final View dtBorderListView = (View) findViewById(R.id.dtBorderListView);
+        final View dtOverlay = (View) findViewById(R.id.dateTimeOverlay);
+        final TimePicker timePicker = findViewById(R.id.inputTime);
+        final DatePicker datePicker = findViewById(R.id.inputDate);
+
+        // --TIME-- Clicking on the Time Button opens up the Time Picker
+
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtOverlay.setVisibility(View.VISIBLE);
+                dtBorderListView.setVisibility(View.VISIBLE);
+                timePicker.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.GONE);
+                done.setVisibility(View.GONE);
+                timeDone.setVisibility(View.VISIBLE);
+                timeCancel.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        // Clicking "Set Time" should save the time and set a notification.
+        timeDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtOverlay.setVisibility(View.GONE);
+                dtBorderListView.setVisibility(View.GONE);
+                timePicker.setVisibility(View.GONE);
+                datePicker.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                done.setVisibility(View.VISIBLE);
+                timeDone.setVisibility(View.GONE);
+                timeCancel.setVisibility(View.GONE);
+            }
+        });
+
+        // Clicking Cancel should not save the time and disregard a notification. (Similar implementation for Date)
+        timeCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtOverlay.setVisibility(View.GONE);
+                dtBorderListView.setVisibility(View.GONE);
+                datePicker.setVisibility(View.GONE);
+                timePicker.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                done.setVisibility(View.VISIBLE);
+                timeDone.setVisibility(View.GONE);
+                timeCancel.setVisibility(View.GONE);
+                time.setText("Set a Time");
+            }
+        });
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtOverlay.setVisibility(View.VISIBLE);
+                dtBorderListView.setVisibility(View.VISIBLE);
+                datePicker.setVisibility(View.VISIBLE);
+                cancel.setVisibility(View.GONE);
+                done.setVisibility(View.GONE);
+                dateDone.setVisibility(View.VISIBLE);
+                dateCancel.setVisibility(View.VISIBLE);
+            }
+        });
+
+        dateDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtOverlay.setVisibility(View.GONE);
+                dtBorderListView.setVisibility(View.GONE);
+                timePicker.setVisibility(View.GONE);
+                datePicker.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                done.setVisibility(View.VISIBLE);
+                dateDone.setVisibility(View.GONE);
+                dateCancel.setVisibility(View.GONE);
+            }
+        });
+
+        dateCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dtOverlay.setVisibility(View.GONE);
+                dtBorderListView.setVisibility(View.GONE);
+                datePicker.setVisibility(View.GONE);
+                timePicker.setVisibility(View.GONE);
+                cancel.setVisibility(View.VISIBLE);
+                done.setVisibility(View.VISIBLE);
+                dateDone.setVisibility(View.GONE);
+                dateCancel.setVisibility(View.GONE);
+                date.setText("Set a Date");
             }
         });
     }
