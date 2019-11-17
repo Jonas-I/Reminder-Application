@@ -38,7 +38,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public ExpandableListAdapter(Context context, ArrayList<ReminderList> listDataHeader, Activity mainActivity) {
         this.context = context;
         this.listDataHeader = new ArrayList<>();
-        this.listDataHeader.addAll(listDataHeader);
+
+        //this.listDataHeader.addAll(listDataHeader);
+        //SHOULD BE:
+        this.listDataHeader = listDataHeader;
+
         this.mainActivity = mainActivity;
         this.original = new ArrayList<>();
         this.original.addAll(listDataHeader);
