@@ -54,7 +54,10 @@ public class CreateReminderActivity extends Activity {
                     type.setEnabled(true);
                     finish();//finishing activity
                 }
-                else showToast("Please enter values for Description and Type");
+                else {
+                    if (dateSet ^ timeSet) showToast("If you'd like to set an alert make sure you enter a time and a date");
+                    else showToast("Please enter values for Description and Type");
+                }
             }
         });
 
@@ -118,7 +121,7 @@ public class CreateReminderActivity extends Activity {
     private void showToast (String message) {
         Context context = getApplicationContext();
         CharSequence text = message;
-        int duration = Toast.LENGTH_SHORT;
+        int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
@@ -134,7 +137,8 @@ public class CreateReminderActivity extends Activity {
         descString = desc.getText().toString();
         type = findViewById(R.id.inputType);
         typeString = type.getText().toString();
-        return !(descString.equals("") || typeString.equals(""));
+        return !(descString.equals("") || typeString.equals(""))
+                && !(dateSet ^ timeSet);
     }
 
     private void updateLabel() {
