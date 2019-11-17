@@ -153,23 +153,27 @@ public class MainActivity extends AppCompatActivity{
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);
             Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
-            Date remDate = remCal.getTime();
-            Alert alert = new Alert(remDate);
-            db.alertDao().insert(alert);
-            Reminder reminder = new Reminder(descString, type.getType(),alert.getAlertID());
+            Reminder newReminder;
+            if (remCal != null) {
+                Date remDate = remCal.getTime();
+                Alert alert = new Alert(remDate);
+                db.alertDao().insert(alert);
+                newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
+                Calendar alertTime = Calendar.getInstance();
+                alertTime.setTime(alert.getAlertTime());
+                startAlarm(alertTime, newReminder);
+            }
+            else newReminder = new Reminder(descString, type.getType());
             db.reminderTypeDao().insert(type);
-            db.reminderDao().insert(reminder);
+            db.reminderDao().insert(newReminder);
             ReminderList newList = new ReminderList(type.getType());
-            Calendar alertTime = Calendar.getInstance();
-            alertTime.setTime(alert.getAlertTime());
-            startAlarm(alertTime, reminder);
             if (listDataHeader.contains(newList)) {
                 int indexOfList = listDataHeader.indexOf(newList);
-                listDataHeader.get(indexOfList).add(reminder);
+                listDataHeader.get(indexOfList).add(newReminder);
                 listAdapter.notifyDataSetChanged();
             }
             else {
-                newList.add(reminder);
+                newList.add(newReminder);
                 listDataHeader.add(0,newList);
                 listAdapter.notifyDataSetChanged();
             }

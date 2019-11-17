@@ -47,11 +47,8 @@ public class CreateReminderActivity extends Activity {
                     Intent intent=new Intent();
                     intent.putExtra("DESCRIPTION",descString);
                     intent.putExtra("TYPE",typeString);
-                    if (dateSet && timeSet) {
+                    if (dateSet && timeSet)
                         intent.putExtra("REMINDER_CALENDAR", reminderDate);
-                        intent.putExtra("FORMATTED_DATE",dateText);
-                        intent.putExtra("FORMATTED_TIME",timeText);
-                    }
                     else intent.putExtra("REMINDER_CALENDAR",(Calendar)null);
                     setResult(RESULT_OK,intent);
                     type.setEnabled(true);

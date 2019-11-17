@@ -240,6 +240,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             String time = getTimeText(alertCal);
             alertText.setText("Alert: " + sdf.format(alertDate) + " at " + time);
         }
+        else alertText.setText("Alert: None");
         return convertView;
     }
 
