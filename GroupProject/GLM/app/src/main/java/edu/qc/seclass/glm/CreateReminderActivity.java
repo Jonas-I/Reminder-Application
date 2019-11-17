@@ -75,6 +75,10 @@ public class CreateReminderActivity extends Activity {
                 done.setVisibility(View.GONE);
                 timeDone.setVisibility(View.VISIBLE);
                 timeCancel.setVisibility(View.VISIBLE);
+                date.setClickable(false);
+                time.setClickable(false);
+
+
 
             }
         });
@@ -91,6 +95,8 @@ public class CreateReminderActivity extends Activity {
                 done.setVisibility(View.VISIBLE);
                 timeDone.setVisibility(View.GONE);
                 timeCancel.setVisibility(View.GONE);
+                date.setClickable(true);
+                time.setClickable(true);
             }
         });
 
@@ -106,7 +112,8 @@ public class CreateReminderActivity extends Activity {
                 done.setVisibility(View.VISIBLE);
                 timeDone.setVisibility(View.GONE);
                 timeCancel.setVisibility(View.GONE);
-                time.setText("Set a Time");
+                date.setClickable(true);
+                time.setClickable(true);
             }
         });
 
@@ -120,6 +127,8 @@ public class CreateReminderActivity extends Activity {
                 done.setVisibility(View.GONE);
                 dateDone.setVisibility(View.VISIBLE);
                 dateCancel.setVisibility(View.VISIBLE);
+                date.setClickable(false);
+                time.setClickable(false);
             }
         });
 
@@ -134,6 +143,9 @@ public class CreateReminderActivity extends Activity {
                 done.setVisibility(View.VISIBLE);
                 dateDone.setVisibility(View.GONE);
                 dateCancel.setVisibility(View.GONE);
+                date.setClickable(true);
+                time.setClickable(true);
+
             }
         });
 
@@ -148,7 +160,9 @@ public class CreateReminderActivity extends Activity {
                 done.setVisibility(View.VISIBLE);
                 dateDone.setVisibility(View.GONE);
                 dateCancel.setVisibility(View.GONE);
-                date.setText("Set a Date");
+                date.setClickable(true);
+                time.setClickable(true);
+
             }
         });
     }
