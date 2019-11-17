@@ -1,6 +1,7 @@
 package edu.qc.seclass.glm;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +14,16 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Locale;
+
+import java.text.SimpleDateFormat;
 
 public class CreateReminderActivity extends Activity {
 
     EditText desc, type;
     String descString, typeString;
+    Button dateButton;
+    Calendar myCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,24 +56,12 @@ public class CreateReminderActivity extends Activity {
             }
         });
 
-
-
-        // Time and Date
-        final Button time = (Button) findViewById(R.id.inputTimeButton);
-        final Button date = (Button) findViewById(R.id.inputDateButton);
-        final Button cancel = (Button) findViewById(R.id.createReminderCancel);
-        final Button done = (Button) findViewById(R.id.createReminderDone);
-        final Button timeCancel= (Button) findViewById(R.id.timeCancel);
-        final Button timeDone = (Button) findViewById(R.id.timeDone);
-        final Button dateCancel= (Button) findViewById(R.id.dateCancel);
-        final Button dateDone = (Button) findViewById(R.id.dateDone);
-        final View dtBorderListView = (View) findViewById(R.id.dtBorderListView);
-        final View dtOverlay = (View) findViewById(R.id.dateTimeOverlay);
-        final TimePicker timePicker = findViewById(R.id.inputTime);
-        final DatePicker datePicker = findViewById(R.id.inputDate);
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
+
+        final Button time = (Button) findViewById(R.id.inputTimeButton);
+
         final TimePickerDialog mTimePicker;
         mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -81,90 +75,41 @@ public class CreateReminderActivity extends Activity {
                 else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
                     am_pm = "PM";
                 String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ?"12":datetime.get(Calendar.HOUR)+"";
-                time.setText(strHrsToShow + ":" + selectedMinute + " " + am_pm);
+                String formattedTime = strHrsToShow + ":" + selectedMinute + " " + am_pm;
+                time.setText(formattedTime);
             }
-        }, hour, minute, false);//Yes 24 hour time
-        // --TIME-- Clicking on the Time Button opens up the Time Picker
+        }, hour, minute, false);
 
+        // --TIME-- Clicking on the Time Button opens up the Time Picker
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mTimePicker.show();
-
-
             }
         });
 
-        // Clicking "Set Time" should save the time and set a notification.
-        timeDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dtOverlay.setVisibility(View.GONE);
-                dtBorderListView.setVisibility(View.GONE);
-                timePicker.setVisibility(View.GONE);
-                datePicker.setVisibility(View.GONE);
-                cancel.setVisibility(View.VISIBLE);
-                done.setVisibility(View.VISIBLE);
-                timeDone.setVisibility(View.GONE);
-                timeCancel.setVisibility(View.GONE);
-            }
-        });
+        dateButton = (Button) findViewById(R.id.inputDateButton);
+        myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-        // Clicking Cancel should not save the time and disregard a notification. (Similar implementation for Date)
-        timeCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                dtOverlay.setVisibility(View.GONE);
-                dtBorderListView.setVisibility(View.GONE);
-                datePicker.setVisibility(View.GONE);
-                timePicker.setVisibility(View.GONE);
-                cancel.setVisibility(View.VISIBLE);
-                done.setVisibility(View.VISIBLE);
-                timeDone.setVisibility(View.GONE);
-                timeCancel.setVisibility(View.GONE);
-                time.setText("Set a Time");
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
             }
-        });
 
-        date.setOnClickListener(new View.OnClickListener() {
+        };
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dtOverlay.setVisibility(View.VISIBLE);
-                dtBorderListView.setVisibility(View.VISIBLE);
-                datePicker.setVisibility(View.VISIBLE);
-                cancel.setVisibility(View.GONE);
-                done.setVisibility(View.GONE);
-                dateDone.setVisibility(View.VISIBLE);
-                dateCancel.setVisibility(View.VISIBLE);
-            }
-        });
-
-        dateDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dtOverlay.setVisibility(View.GONE);
-                dtBorderListView.setVisibility(View.GONE);
-                timePicker.setVisibility(View.GONE);
-                datePicker.setVisibility(View.GONE);
-                cancel.setVisibility(View.VISIBLE);
-                done.setVisibility(View.VISIBLE);
-                dateDone.setVisibility(View.GONE);
-                dateCancel.setVisibility(View.GONE);
-            }
-        });
-
-        dateCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dtOverlay.setVisibility(View.GONE);
-                dtBorderListView.setVisibility(View.GONE);
-                datePicker.setVisibility(View.GONE);
-                timePicker.setVisibility(View.GONE);
-                cancel.setVisibility(View.VISIBLE);
-                done.setVisibility(View.VISIBLE);
-                dateDone.setVisibility(View.GONE);
-                dateCancel.setVisibility(View.GONE);
-                date.setText("Set a Date");
+                new DatePickerDialog(CreateReminderActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
     }
@@ -191,6 +136,11 @@ public class CreateReminderActivity extends Activity {
         return !(descString.equals("") || typeString.equals(""));
     }
 
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        dateButton.setText(sdf.format(myCalendar.getTime()));
+    }
 
 
 }

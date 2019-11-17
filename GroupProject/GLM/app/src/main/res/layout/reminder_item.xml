@@ -31,17 +31,21 @@
         android:layout_height="wrap_content" />
 
     <!--This should include the location/time for an ALERT-->
+
+
     <TextView
         android:id="@+id/remAlert"
-        android:textSize="12dp"
-        android:textColor="#476877"
-        android:layout_below="@id/remItemName"
-        android:layout_marginRight="5dp"
-        android:layout_toRightOf="@id/remItem"
-        android:layout_toLeftOf="@id/btnEdit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remItemName"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toLeftOf="@id/btnEdit"
+        android:layout_toRightOf="@id/remItem"
+        android:textColor="#476877"
+        android:textSize="12dp" />
 
     <Button
         android:id="@+id/btnDelete"
