@@ -232,7 +232,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String alertID = listDataHeader.get(groupPosition).get(childPosition).getAlertID();
         if (alertID != null) {
             Alert alert = MainActivity.db.alertDao().getAlertByID(alertID);
-            alertText.setText(alert.getAlertTime().toString());
+            alertText.setText("Alert: " + alert.getAlertTime().toString());
         }
         return convertView;
     }

@@ -34,7 +34,6 @@
     <TextView
         android:id="@+id/remAlert"
         android:textSize="12dp"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:textColor="#476877"
         android:layout_below="@id/remItemName"
         android:layout_marginRight="5dp"
