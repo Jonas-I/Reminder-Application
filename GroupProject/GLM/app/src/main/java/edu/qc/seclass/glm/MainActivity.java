@@ -24,7 +24,6 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.fragment.app.DialogFragment;
 
 /*
         TODO:   (Jonas)
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
-        DialogFragment timePicker = new TimePickerFragment();
-        timePicker.show(getSupportFragmentManager(), "time picker");
+        //DialogFragment timePicker = new TimePickerFragment();
+        //timePicker.show(getSupportFragmentManager(), "time picker");
 
 //        EditText searchInput = (EditText) findViewById(R.id.searchInput);
 //
