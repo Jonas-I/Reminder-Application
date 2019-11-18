@@ -18,7 +18,7 @@ public class Alert implements Serializable {
     @ColumnInfo(name = "alert_id")
     private String alertID;
 
-    @ColumnInfo(name = "time")
+    @ColumnInfo(name = "timeBtn")
     private Date alertTime;
 
     @ColumnInfo(name = "repeat")
@@ -60,5 +60,12 @@ public class Alert implements Serializable {
 
     public void setRepeat(String repeat) {
         this.repeat = repeat;
+    }
+
+    @Override
+    public boolean equals (Object other) {
+        Alert otherAlert = (Alert) other;
+        return this.alertTime.equals(otherAlert.getAlertTime()) &&
+                this.repeat.equals(((Alert) other).getRepeat());
     }
 }

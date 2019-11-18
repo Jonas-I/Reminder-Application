@@ -111,7 +111,7 @@ public class CreateReminderActivityTest {
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(6, 30));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.createReminderDone)).perform(click());
-        onView(withText("If you'd like to set an alert make sure you enter a time and a date")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("If you'd like to set an alert make sure you enter a timeBtn and a date")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
     @Test
@@ -122,6 +122,6 @@ public class CreateReminderActivityTest {
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2019, 12, 31));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.createReminderDone)).perform(click());
-        onView(withText("If you'd like to set an alert make sure you enter a time and a date")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("If you'd like to set an alert make sure you enter a timeBtn and a date")).inRoot(withDecorView(not(is(mainRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 }

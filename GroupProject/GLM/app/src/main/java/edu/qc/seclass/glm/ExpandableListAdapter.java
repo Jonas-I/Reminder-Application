@@ -135,7 +135,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                                     intent.putExtra("SELECTED_LIST", selectedList);
                                     intent.putExtra("LIST", groupPosition);
                                     intent.putExtra("TYPE",selectedList.getType());
-                                    intent.putExtra("REQUEST", 3);
+                                    intent.putExtra("REQUEST_CODE", 3);
 //                                    Toast.makeText(mainActivity, "Creating new Reminder", Toast.LENGTH_SHORT).show();
                                     mainActivity.startActivityForResult(intent,3);
                                 }
@@ -193,10 +193,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 if (!editButtonPressed) {
                     editButtonPressed = true;
                     Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
-                    Intent intent = new Intent(mainActivity, EditReminderActivity.class);
+                    Intent intent = new Intent(mainActivity, CreateReminderActivity.class);
                     intent.putExtra("SELECTED_REMINDER", selectedReminder);
                     intent.putExtra("LIST", groupPosition);
                     intent.putExtra("REMINDER",childPosition);
+                    intent.putExtra("REQUEST_CODE",2);
                     mainActivity.startActivityForResult(intent,2);
                 }
             }

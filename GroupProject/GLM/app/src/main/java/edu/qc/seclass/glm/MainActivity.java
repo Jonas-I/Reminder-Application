@@ -46,7 +46,8 @@ import androidx.core.app.NotificationManagerCompat;
  */
 public class MainActivity extends AppCompatActivity{
 
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    public static final int CREATE_REMINDER_REQUEST_CODE = 1;
+    public static final int EDIT_REMINDER_REQUEST_CODE = 2;
     Button createButton;
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 createButton.setEnabled(false);
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, CREATE_REMINDER_REQUEST_CODE);
             }
         });
     }
@@ -134,24 +135,16 @@ public class MainActivity extends AppCompatActivity{
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE || requestCode == 3) && resultCode == RESULT_OK) {
+        if ((requestCode == CREATE_REMINDER_REQUEST_CODE || requestCode == 3) && resultCode == RESULT_OK) {
             String descString = data.getStringExtra("DESCRIPTION");
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);
             Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
-            Reminder newReminder;
-            if (remCal != null) {
-                Date remDate = remCal.getTime();
-                String repeat = data.getStringExtra("REPEAT");
-                Alert alert = new Alert(remDate,repeat);
-                db.alertDao().insert(alert);
-                newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
-                Calendar alertTime = Calendar.getInstance();
-                alertTime.setTime(alert.getAlertTime());
-                startAlarm(alertTime, newReminder, repeat);// TODO: DANIEL - add repeat
-            }
-            else newReminder = new Reminder(descString, type.getType());
+            Reminder newReminder = null;
             db.reminderTypeDao().insert(type);
+            if (remCal != null)
+                newReminder = createAlert(remCal,data,newReminder,descString,type, requestCode);
+            else newReminder = new Reminder(descString, type.getType());
             db.reminderDao().insert(newReminder);
             ReminderList newList = new ReminderList(type.getType());
             if (listDataHeader.contains(newList)) {
@@ -165,14 +158,18 @@ public class MainActivity extends AppCompatActivity{
                 listAdapter.notifyDataSetChanged();
             }
         }
-        else if (requestCode == 2) {
-            if (resultCode == 1) { // Return from Edit activity
+        else if (requestCode == EDIT_REMINDER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) { // Return from Edit activity
                 Reminder createdReminder = data.getParcelableExtra("NEW_REMINDER");
                 int list = data.getIntExtra("LIST", 0);
                 int child = data.getIntExtra("REMINDER", 0);
                 String reminderID = createdReminder.getReminderID();
                 String desc = createdReminder.getDescription();
                 db.reminderDao().updateReminderDescription(reminderID, desc);
+                Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
+                if (remCal != null)
+                    createdReminder = createAlert(remCal, data, createdReminder, desc, new ReminderType(createdReminder.getType()), requestCode);
+                db.reminderDao().insert(createdReminder);
                 listDataHeader.get(list).set(child, createdReminder);
                 listAdapter.notifyDataSetChanged();
             }
@@ -262,4 +259,26 @@ public class MainActivity extends AppCompatActivity{
         notificationId++;
     }
 
+    private Reminder createAlert (Calendar remCal, Intent data, Reminder newReminder, String descString, ReminderType type, int requestCode) {
+        Date remDate = remCal.getTime();
+        String repeat = data.getStringExtra("REPEAT");
+        Alert alert = new Alert(remDate,repeat);
+        boolean checked = false;
+        if (requestCode == 2) {
+            Alert oldAlert = MainActivity.db.alertDao().getAlertByID(newReminder.getAlertID());
+            if (oldAlert == null || !alert.equals(oldAlert)) {
+                db.alertDao().insert(alert);
+                db.reminderDao().deleteReminderbyID(newReminder.getReminderID());
+                checked = newReminder.isChecked();
+            }
+            else return newReminder;
+        }
+        else db.alertDao().insert(alert);
+        newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
+        newReminder.setChecked(checked);
+        Calendar alertTime = Calendar.getInstance();
+        alertTime.setTime(alert.getAlertTime());
+        startAlarm(alertTime, newReminder, repeat);
+        return newReminder;
+    }
 }
