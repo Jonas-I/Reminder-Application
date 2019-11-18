@@ -135,7 +135,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                                     intent.putExtra("SELECTED_LIST", selectedList);
                                     intent.putExtra("LIST", groupPosition);
                                     intent.putExtra("TYPE",selectedList.getType());
-                                    intent.putExtra("REQUEST", 3);
+                                    intent.putExtra("REQUEST_CODE", 3);
 //                                    Toast.makeText(mainActivity, "Creating new Reminder", Toast.LENGTH_SHORT).show();
                                     mainActivity.startActivityForResult(intent,3);
                                 }
