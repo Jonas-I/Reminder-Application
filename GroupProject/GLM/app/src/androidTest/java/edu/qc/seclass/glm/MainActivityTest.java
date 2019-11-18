@@ -3,11 +3,13 @@ package edu.qc.seclass.glm;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +19,11 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
+import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.StringStartsWith.startsWith;
@@ -29,21 +34,47 @@ public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> mainRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Test
-    public void AddReminderListTestInMain() {
-        onView(withId(R.id.createButton)).perform(click());
-        onView(withId(R.id.inputType)).perform(typeText("Appointments"), closeSoftKeyboard());
-        onView(withId(R.id.inputDescription)).perform(typeText("Doctor's Appointment"), closeSoftKeyboard());
-        onView(withId(R.id.createReminderDone)).perform(click());
+    @After
+    public void tearDown(){
+        try {
+            onView(allOf(withId(R.id.listButton), hasSibling(withText("Test")))).perform(click());
+            onView(withText("Delete List")).perform(click());
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+        }
 
-        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Appointments")))).perform(click());
-        onView(allOf(withId(R.id.remItemName), withText(startsWith("Doctor's Appointment")))).perform(click());
+        try {
+            onView(withId(R.id.editReminderCancel)).perform(click());
+            onView(allOf(withId(R.id.listButton), hasSibling(withText("Test")))).perform(click());
+            onView(withText("Delete List")).perform(click());
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+        }
+
+        try {
+            onView(withId(R.id.createReminderCancel)).perform(click());
+            onView(allOf(withId(R.id.listButton), hasSibling(withText("Test")))).perform(click());
+            onView(withText("Delete List")).perform(click());
+        } catch (NoMatchingViewException e) {
+            // View is not in hierarchy
+        }
     }
 
     @Test
     public void createButtonOpensCreateReminderActivity() {
         onView(withId(R.id.createButton)).perform(click());
         onView(withId((R.id.createReminderTitle))).check(matches(withText("Create Reminder")));
+    }
+
+    @Test
+    public void AddReminderListTestInMain() {
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Doctor's Appointment"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Test")))).perform(click());
+        onView(allOf(withId(R.id.remItemName), withText(startsWith("Doctor's Appointment")))).perform(click());
     }
 
     @Test
@@ -61,5 +92,63 @@ public class MainActivityTest {
 
         onView(allOf(withId(R.id.remListTitle), withText(startsWith("Test")))).perform(click());
         onView(allOf(withId(R.id.remItemName), withText(startsWith("Test Reminder")))).perform(click());
+    }
+
+    @Test
+    public void EditReminderActivityLaunchTest() {
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Test Reminder"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Test")))).perform(click());
+        onView(allOf(withId(R.id.btnEdit), hasSibling(withText("Test Reminder")))).perform(click());
+        onView(withId((R.id.editReminderTitle))).check(matches(withText("Edit Reminder")));
+    }
+
+    @Test
+    public void CheckAllTest() {
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Test Reminder"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Test Reminder 2"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Test Reminder 3"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Test")))).perform(click());
+        onView(allOf(withId(R.id.checkAllButton), hasSibling(withText("Test")))).perform(click());
+        onView(allOf(withId(R.id.remItem), hasSibling(withText("Test Reminder")))).check(matches(isChecked()));
+        onView(allOf(withId(R.id.remItem), hasSibling(withText("Test Reminder 2")))).check(matches(isChecked()));
+        onView(allOf(withId(R.id.remItem), hasSibling(withText("Test Reminder 3")))).check(matches(isChecked()));
+    }
+
+    @Test
+    public void DeleteReminderTest() {
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Test Reminder"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(allOf(withId(R.id.remListTitle), withText(startsWith("Test")))).perform(click());
+        onView(allOf(withId(R.id.remItemName), withText(startsWith("Test Reminder")))).perform(click());
+    }
+
+    @Test
+    public void DeleteListTest() {
+        onView(withId(R.id.createButton)).perform(click());
+        onView(withId(R.id.inputType)).perform(typeText("Test"), closeSoftKeyboard());
+        onView(withId(R.id.inputDescription)).perform(typeText("Test Reminder"), closeSoftKeyboard());
+        onView(withId(R.id.createReminderDone)).perform(click());
+
+        onView(allOf(withId(R.id.listButton), hasSibling(withText("Test")))).perform(click());
+        onView(withText("Delete List")).perform(click());
     }
 }
