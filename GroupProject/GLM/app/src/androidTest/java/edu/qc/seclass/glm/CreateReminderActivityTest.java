@@ -43,7 +43,7 @@ public class CreateReminderActivityTest {
     @Test
     public void CancelButtonTest() {
         onView(withId(R.id.createReminderCancel)).perform(click());
-        onView(withId(R.id.ExpandLV)).check(matches(isDisplayed()));
+        onView(withId(R.id.createButton)).check(matches(isDisplayed()));
     }
 
     @Test
