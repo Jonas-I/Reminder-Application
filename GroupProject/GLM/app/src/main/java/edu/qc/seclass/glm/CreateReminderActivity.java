@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,6 +34,10 @@ public class CreateReminderActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_reminder);
+        final int request = getIntent().getIntExtra("REQUEST_CODE",1);
+        TextView title = findViewById(R.id.createReminderTitle);
+        String titleText = request == 1 || request == 3 ? "Create Reminder" : "Edit Reminder";
+        title.setText(titleText);
         type = findViewById(R.id.inputType);
         desc = findViewById(R.id.inputDescription);
         repeatBtn = (Button) findViewById(R.id.inputRepeatButton);
@@ -46,7 +51,6 @@ public class CreateReminderActivity extends Activity {
                 finish();
             }
         });
-        final int request = getIntent().getIntExtra("REQUEST_CODE",1);
         if (request == 2) {
             selectedReminder = getIntent().getParcelableExtra("SELECTED_REMINDER");
             populateFields();
