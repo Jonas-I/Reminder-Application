@@ -174,7 +174,11 @@ public class CreateReminderActivity extends Activity {
         if (alertId != null) {
             Alert alert = MainActivity.db.alertDao().getAlertByID(alertId);
             repeatBtn.setText(alert.getRepeat());
-            editDateLabel(alert.getAlertTime());
+            Date alertDate = alert.getAlertTime();
+            editDateLabel(alertDate);
+            reminderDate = Calendar.getInstance();
+            reminderDate.setTime(alertDate);
+            editTimeLabel(reminderDate.get(Calendar.HOUR_OF_DAY),reminderDate.get(Calendar.MINUTE));
         }
     }
 
