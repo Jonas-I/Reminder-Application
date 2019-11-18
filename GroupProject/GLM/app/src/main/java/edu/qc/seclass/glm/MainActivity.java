@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity{
                 newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
                 Calendar alertTime = Calendar.getInstance();
                 alertTime.setTime(alert.getAlertTime());
-                startAlarm(alertTime, newReminder);// TODO: DANIEL - add repeat
+                startAlarm(alertTime, newReminder, repeat);// TODO: DANIEL - add repeat
             }
             else newReminder = new Reminder(descString, type.getType());
             db.reminderTypeDao().insert(type);
@@ -218,7 +219,7 @@ public class MainActivity extends AppCompatActivity{
 
     static int notificationId = 0;
 
-    private void startAlarm(Calendar c, Reminder r) {
+    private void startAlarm(Calendar c, Reminder r, String repeat) {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -242,7 +243,22 @@ public class MainActivity extends AppCompatActivity{
         notificationIntent.putExtra(AlertReceiver.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, notificationId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+
+        // Mapping of repeat String settings to their appropriate millisecond repeat delays
+        HashMap <String,Long> repeatToMilliDelay = new HashMap<>();
+        repeatToMilliDelay.put("Once", AlarmManager.INTERVAL_DAY);
+        repeatToMilliDelay.put("Daily", AlarmManager.INTERVAL_DAY);
+        repeatToMilliDelay.put("Weekly", 1000L*60L*60L*24L*7L);
+        Calendar monthLater = (Calendar)c.clone();
+        monthLater.set(Calendar.MONTH, c.get(Calendar.MONTH)+1);
+        repeatToMilliDelay.put("Monthly", monthLater.getTimeInMillis()-c.getTimeInMillis());
+        Calendar yearLater = (Calendar)c.clone();
+        yearLater.set(Calendar.YEAR, c.get(Calendar.YEAR)+1);
+        repeatToMilliDelay.put("Yearly", yearLater.getTimeInMillis()-c.getTimeInMillis());
+
+        if (repeat.equalsIgnoreCase("Never"))
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        else alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), repeatToMilliDelay.get(repeat), pendingIntent);
         notificationId++;
     }
 
