@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity{
             ReminderType type = new ReminderType(typeString);
             Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
             Reminder newReminder = null;
-            if (remCal != null)
-                createAlert(remCal,data,newReminder,descString,type, requestCode);
-            else newReminder = new Reminder(descString, type.getType());
             db.reminderTypeDao().insert(type);
+            if (remCal != null)
+                newReminder = createAlert(remCal,data,newReminder,descString,type, requestCode);
+            else newReminder = new Reminder(descString, type.getType());
             db.reminderDao().insert(newReminder);
             ReminderList newList = new ReminderList(type.getType());
             if (listDataHeader.contains(newList)) {
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity{
                 Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
                 if (remCal != null)
                     createdReminder = createAlert(remCal, data, createdReminder, desc, new ReminderType(createdReminder.getType()), requestCode);
+                db.reminderDao().insert(createdReminder);
                 listDataHeader.get(list).set(child, createdReminder);
                 listAdapter.notifyDataSetChanged();
             }
@@ -262,18 +263,19 @@ public class MainActivity extends AppCompatActivity{
         Date remDate = remCal.getTime();
         String repeat = data.getStringExtra("REPEAT");
         Alert alert = new Alert(remDate,repeat);
+        boolean checked = false;
         if (requestCode == 2) {
             Alert oldAlert = MainActivity.db.alertDao().getAlertByID(newReminder.getAlertID());
-            if (oldAlert == null || !alert.equals(oldAlert))
+            if (oldAlert == null || !alert.equals(oldAlert)) {
                 db.alertDao().insert(alert);
+                db.reminderDao().deleteReminderbyID(newReminder.getReminderID());
+                checked = newReminder.isChecked();
+            }
             else return newReminder;
         }
         else db.alertDao().insert(alert);
-        db.reminderDao().deleteReminderbyID(newReminder.getReminderID());
-        boolean checked = newReminder.isChecked();
         newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
         newReminder.setChecked(checked);
-        db.reminderDao().insert(newReminder);
         Calendar alertTime = Calendar.getInstance();
         alertTime.setTime(alert.getAlertTime());
         startAlarm(alertTime, newReminder, repeat);
