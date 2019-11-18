@@ -73,6 +73,4 @@ For example, if the User was to press the Create button within the Main Activity
 - There is no need for other diagrams as this is a simple application. It has basic functionality of managing Reminders which is shown through the use of the Class Diagram, Use Case Model, and Component diagram. These three diagrams provide more than enough information in order to plan out the construction of the Application.
 
 ## 4 User Interface Design
-![](Design-Team/images/UserInterface_1.png)
-
-![](Design-Team/images/UserInterface_2.png)
+![](Design-Team/images/UserInterface_3.png)
