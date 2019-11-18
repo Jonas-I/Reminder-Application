@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A5E3FF">
+    android:background="#1a1a1a">
 
     <TextView
         android:id="@+id/editReminderTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#76B4D0"
+        android:background="#2d2d2d"
         android:gravity="center_horizontal|center_vertical"
         android:text="Edit Reminder"
-        android:textColor="#1C2529"
+        android:textColor="#75ffffff"
         android:textSize="24dp"
         android:textStyle="bold" />
 
     <View
         android:id="@+id/lineView"
         android:layout_width="match_parent"
-        android:layout_below="@id/editReminderTitle"
         android:layout_height="2dp"
-        android:background="#5E8DA2">
-    </View>
+        android:layout_below="@id/editReminderTitle"
+        android:background="#30ffffff"></View>
 
     <!--Type-->
     <TextView
         android:id="@+id/editType"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="0dp"
+        android:layout_below="@id/lineView"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_below="@id/lineView"
+        android:gravity="center_vertical"
         android:text="Type:"
+        android:textColor="#80ffffff"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editInputType"
@@ -52,16 +52,17 @@
         android:hint="Enter the type of reminder"
         android:paddingTop="2dp"
         android:singleLine="true"
+        android:textColor="#40ffffff"
+        android:textColorHint="#40ffffff"
         android:textSize="13sp" />
 
     <View
         android:id="@+id/lineView1"
         android:layout_width="match_parent"
-        android:layout_below="@id/editType"
         android:layout_height="2dp"
+        android:layout_below="@id/editType"
         android:layout_marginLeft="10dp"
-        android:background="#5E8DA2">
-    </View>
+        android:background="#30ffffff"></View>
 
     <!--Description-->
     <TextView
@@ -75,6 +76,7 @@
         android:layout_marginBottom="5dp"
         android:gravity="top"
         android:text="Description:"
+        android:textColor="#80ffffff"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -92,15 +94,17 @@
         android:hint="Enter a description"
         android:paddingStart="5dp"
         android:paddingTop="5dp"
+        android:textColor="#40ffffff"
+        android:textColorHint="#40ffffff"
         android:textSize="13dp" />
 
     <View
         android:id="@+id/lineView2"
         android:layout_width="match_parent"
-        android:layout_below="@id/editInputDescription"
         android:layout_height="2dp"
+        android:layout_below="@id/editInputDescription"
         android:layout_marginLeft="10dp"
-        android:background="#5E8DA2"/>
+        android:background="#30ffffff" />
 
     <!--Alert-->
     <TextView
@@ -111,18 +115,19 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
         android:text="Alert:"
+        android:textColor="#80ffffff"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:textStyle="bold" />
 
     <View
         android:id="@+id/lineView3"
         android:layout_width="match_parent"
-        android:layout_below="@id/editAlert"
         android:layout_height="2dp"
+        android:layout_below="@id/editAlert"
         android:layout_marginLeft="10dp"
-        android:background="#5E8DA2"/>
+        android:background="#30ffffff" />
 
     <!--Time-->
     <TextView
@@ -134,11 +139,12 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/editAlert"
-        android:text="Time:"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:gravity="center_vertical"
-        android:onClick="showTimePickerDialog"/>
+        android:onClick="showTimePickerDialog"
+        android:text="Time:"
+        android:textColor="#75ffffff"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/editInputTimeButton"
@@ -154,6 +160,8 @@
         android:hint="Set a time"
         android:inputType="datetime"
         android:paddingTop="2dp"
+        android:textColor="#40ffffff"
+        android:textColorHint="#40ffffff"
         android:textSize="13dp" />
 
     <TextView
@@ -164,6 +172,7 @@
         android:layout_toRightOf="@id/editInputTimeButton"
         android:gravity="center_vertical"
         android:text="Repeat:"
+        android:textColor="#80ffffff"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -172,48 +181,50 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginTop="1dp"
         android:layout_below="@id/editAlert"
+        android:layout_marginTop="1dp"
         android:layout_toRightOf="@id/repeatView"
         android:gravity="center|start"
         android:includeFontPadding="true"
         android:text="Never"
         android:textAllCaps="false"
-        android:textColor="#31454E" />
+        android:textColor="#40ffffff" />
 
     <Button
         android:id="@+id/editInputDateButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/editInputTimeButton"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/editTime"
-        style="?android:attr/borderlessButtonStyle"
         android:background="@null"
         android:gravity="center_vertical"
         android:hint="Set a date"
         android:paddingTop="2dp"
+        android:textColor="#40ffffff"
+        android:textColorHint="#40ffffff"
         android:textSize="13dp" />
-
 
 
     <View
         android:id="@+id/lineView4"
         android:layout_width="match_parent"
-        android:layout_below="@id/editInputDateButton"
         android:layout_height="2dp"
-        android:background="#5E8DA2"
+        android:layout_below="@id/editInputDateButton"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/editAlert"
-        android:layout_marginLeft="10dp"/>
+        android:background="#30ffffff" />
+
     <View
         android:id="@+id/lineView6"
         android:layout_width="match_parent"
-        android:layout_below="@id/editInputTimeButton"
         android:layout_height="2dp"
-        android:background="#5E8DA2"
+        android:layout_below="@id/editInputTimeButton"
+        android:layout_marginLeft="0dp"
         android:layout_toRightOf="@id/editTime"
-        android:layout_marginLeft="0dp"/>
+        android:background="#30ffffff" />
 
     <!--Location-->
     <TextView
@@ -225,10 +236,11 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@id/editAlert"
+        android:gravity="center_vertical"
         android:text="Location:"
+        android:textColor="#80ffffff"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editInputLocation"
@@ -242,47 +254,47 @@
         android:gravity="center_vertical"
         android:hint="Set a location"
         android:paddingTop="2dp"
+        android:textColor="#40ffffff"
+        android:textColorHint="#40ffffff"
         android:textSize="13dp" />
 
     <View
         android:id="@+id/lineView5"
         android:layout_width="match_parent"
-        android:layout_below="@id/editLocation"
         android:layout_height="2dp"
-        android:background="#5E8DA2"
+        android:layout_below="@id/editLocation"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/editAlert"
-        android:layout_marginLeft="10dp"/>
+        android:background="#30ffffff" />
 
 
     <View
         android:id="@+id/centerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_centerInParent="true">
-    </View>
+        android:layout_centerInParent="true"></View>
 
     <View
         android:id="@+id/borderView"
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:background="#5E8DA2">
-    </View>
+        android:layout_centerInParent="true"
+        android:background="#30ffffff"></View>
 
     <TimePicker
         android:id="@+id/inputEditTime"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        style="?android:attr/borderlessButtonStyle"
         android:gravity="center_vertical"
         android:hint="Set a time"
         android:inputType="datetime"
         android:paddingTop="2dp"
         android:textSize="13dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <DatePicker
         android:id="@+id/inputDate"
@@ -304,9 +316,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="1dp"
+        android:background="#2d2d2d"
         android:text="Cancel"
-        android:textColor="#CA6A6A"
-        android:background="#76B4D0"/>
+        android:textColor="#95990000" />
 
     <Button
         android:id="@+id/editReminderDone"
@@ -317,11 +329,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="1dp"
 
+        android:background="#2d2d2d"
         android:text="Done"
-        android:textStyle="bold"
-        android:textColor="#AEE0B6"
-        android:background="#76B4D0"/>
-
+        android:textColor="#993bb143"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

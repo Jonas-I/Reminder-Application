@@ -7,10 +7,6 @@
         android:title="Create New Reminder"/>
 
     <item
-        android:id="@+id/pm_editList"
-        android:title="Edit List"/>
-
-    <item
         android:id="@+id/pm_deleteList"
         android:title="Delete List"/>
 

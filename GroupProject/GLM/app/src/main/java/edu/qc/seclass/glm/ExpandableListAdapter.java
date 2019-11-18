@@ -120,9 +120,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 notifyDataSetChanged();
             }
         });
-        final TextView listTitle = (TextView) convertView.findViewById(R.id.remListTitle);
-        final EditText editListTitle = (EditText) convertView.findViewById(R.id.editRemListTitle);
-
         final Button listButton = (Button) convertView.findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -145,29 +142,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 //                                    Toast.makeText(mainActivity, "Creating new Reminder", Toast.LENGTH_SHORT).show();
                                     mainActivity.startActivityForResult(intent,3);
                                 }
-                                return true;
-                            case R.id.pm_editList:
-                                    // Upon clicking this, it should display an edit text view and erase the current text view.
-                                    // Once completed (After pressing enter or clicking away?) textview should display info from edittext
-                                    // Possible Alternative way to set text w/o editText & TextViews (?)
-                                    // TODO: List title information must be saved in the database.
-                                    listTitle.setVisibility(View.GONE);
-                                    editListTitle.setVisibility(View.VISIBLE);
-                                    String previousInput = listTitle.getText().toString();
-
-                                    editListTitle.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                        @Override
-                                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                                            if (actionId == EditorInfo.IME_ACTION_DONE || (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                                                String currentInput = editListTitle.getText().toString();
-                                                listTitle.setText(currentInput);
-                                                editListTitle.setVisibility(View.GONE);
-                                                listTitle.setVisibility(View.VISIBLE);
-                                            }
-                                            return false;
-                                        }
-                                    });
-                                Toast.makeText(mainActivity, "Editing List Name", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.pm_deleteList:
                                 String listType = listDataHeader.remove(groupPosition).getType();
