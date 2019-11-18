@@ -141,12 +141,13 @@ public class MainActivity extends AppCompatActivity{
             Reminder newReminder;
             if (remCal != null) {
                 Date remDate = remCal.getTime();
-                Alert alert = new Alert(remDate);
+                String repeat = data.getStringExtra("REPEAT");
+                Alert alert = new Alert(remDate,repeat);
                 db.alertDao().insert(alert);
                 newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
                 Calendar alertTime = Calendar.getInstance();
                 alertTime.setTime(alert.getAlertTime());
-                startAlarm(alertTime, newReminder);
+                startAlarm(alertTime, newReminder);// TODO: DANIEL - add repeat
             }
             else newReminder = new Reminder(descString, type.getType());
             db.reminderTypeDao().insert(type);

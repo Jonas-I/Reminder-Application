@@ -54,6 +54,10 @@ public class CreateReminderActivity extends Activity {
                     else intent.putExtra("REMINDER_CALENDAR",(Calendar)null);
                     setResult(RESULT_OK,intent);
                     type.setEnabled(true);
+                    //inputRepeatButton
+                    Button repeatButton = findViewById(R.id.inputRepeatButton);
+                    String repeat = repeatButton.getText().toString();
+                    intent.putExtra("REPEAT", repeat);
                     finish();//finishing activity
                 }
                 else {

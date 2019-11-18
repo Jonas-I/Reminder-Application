@@ -6,16 +6,13 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -207,7 +204,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView tvListChild = (TextView) convertView.findViewById(R.id.remItemName);
         tvListChild.setText(childText);
         TextView alertText = convertView.findViewById(R.id.remAlert);
-        String alertID = listDataHeader.get(groupPosition).get(childPosition).getAlertID();
+        String alertID = selectedReminder.getAlertID();
         if (alertID != null) {
             Alert alert = MainActivity.db.alertDao().getAlertByID(alertID);
             SimpleDateFormat sdf = new SimpleDateFormat("E, MMM dd yyyy");
@@ -215,7 +212,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             Calendar alertCal = Calendar.getInstance();
             alertCal.setTime(alertDate);
             String time = getTimeText(alertCal);
-            alertText.setText("Alert: " + sdf.format(alertDate) + " at " + time);
+            alertText.setText("Alert: " + sdf.format(alertDate) + " at " + time + "\nRepeat: "
+                    + alert.getRepeat());
         }
         else alertText.setText("Alert: None");
         return convertView;

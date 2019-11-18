@@ -34,7 +34,7 @@ public class Alert implements Serializable {
     public Alert(Date alertTime) {
         alertID = UUID.randomUUID().toString();
         this.alertTime = alertTime;
-        this.repeat = "NEVER";
+        this.repeat = "Never";
     }
 
     @NonNull
