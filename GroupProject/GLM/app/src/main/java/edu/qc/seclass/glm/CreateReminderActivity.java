@@ -52,10 +52,13 @@ public class CreateReminderActivity extends Activity {
         });
         if (request == 2) {
             selectedReminder = getIntent().getParcelableExtra("SELECTED_REMINDER");
-            Date date = MainActivity.db.alertDao().getAlertByID(selectedReminder.getAlertID()).getAlertTime();
-            reminderDate = Calendar.getInstance();
-            reminderDate.setTime(date);
-            dateSet = timeSet = true;
+            String alertId = selectedReminder.getAlertID();
+            if (alertId != null) {
+                Date date = MainActivity.db.alertDao().getAlertByID(alertId).getAlertTime();
+                reminderDate = Calendar.getInstance();
+                reminderDate.setTime(date);
+                dateSet = timeSet = true;
+            }
             populateFields();
         }
         else if (request == 3) populateFieldsForAddToList();
