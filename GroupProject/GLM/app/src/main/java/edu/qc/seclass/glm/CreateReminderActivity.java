@@ -29,7 +29,6 @@ public class CreateReminderActivity extends Activity {
     Button dateBtn, repeatBtn, timeBtn;
     Reminder selectedReminder;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +52,10 @@ public class CreateReminderActivity extends Activity {
         });
         if (request == 2) {
             selectedReminder = getIntent().getParcelableExtra("SELECTED_REMINDER");
+            Date date = MainActivity.db.alertDao().getAlertByID(selectedReminder.getAlertID()).getAlertTime();
+            reminderDate = Calendar.getInstance();
+            reminderDate.setTime(date);
+            dateSet = timeSet = true;
             populateFields();
         }
         else if (request == 3) populateFieldsForAddToList();
@@ -83,7 +86,7 @@ public class CreateReminderActivity extends Activity {
                     finish();//finishing activity
                 }
                 else {
-                    if (dateSet ^ timeSet) showToast("If you'd like to set an alert make sure you enter a timeBtn and a date");
+                    if (dateSet ^ timeSet) showToast("If you'd like to set an alert make sure you enter a time and a date");
                     else showToast("Please enter values for Description and Type");
                 }
             }
