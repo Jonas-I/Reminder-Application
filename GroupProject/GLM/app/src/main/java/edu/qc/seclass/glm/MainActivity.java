@@ -46,7 +46,8 @@ import androidx.core.app.NotificationManagerCompat;
  */
 public class MainActivity extends AppCompatActivity{
 
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    public static final int CREATE_REMINDER_REQUEST_CODE = 1;
+    public static final int EDIT_REMINDER_REQUEST_CODE = 2;
     Button createButton;
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 createButton.setEnabled(false);
                 Intent intent = new Intent(MainActivity.this, CreateReminderActivity.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, CREATE_REMINDER_REQUEST_CODE);
             }
         });
     }
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE || requestCode == 3) && resultCode == RESULT_OK) {
+        if ((requestCode == CREATE_REMINDER_REQUEST_CODE || requestCode == 3) && resultCode == RESULT_OK) {
             String descString = data.getStringExtra("DESCRIPTION");
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);

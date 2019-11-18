@@ -193,7 +193,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 if (!editButtonPressed) {
                     editButtonPressed = true;
                     Reminder selectedReminder = listDataHeader.get(groupPosition).get(childPosition);
-                    Intent intent = new Intent(mainActivity, EditReminderActivity.class);
+                    Intent intent = new Intent(mainActivity, CreateReminderActivity.class);
                     intent.putExtra("SELECTED_REMINDER", selectedReminder);
                     intent.putExtra("LIST", groupPosition);
                     intent.putExtra("REMINDER",childPosition);
