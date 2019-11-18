@@ -51,6 +51,7 @@ public class CreateReminderActivity extends Activity {
             selectedReminder = getIntent().getParcelableExtra("SELECTED_REMINDER");
             populateFields();
         }
+        else if (request == 3) populateFieldsForAddToList();
         findViewById(R.id.createReminderDone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,6 +203,12 @@ public class CreateReminderActivity extends Activity {
         String strHrsToShow = (reminderDate.get(Calendar.HOUR) == 0) ?"12":reminderDate.get(Calendar.HOUR)+"";
         timeText = strHrsToShow + ":" + selectedMinute + " " + am_pm;
         timeBtn.setText(timeText);
+    }
+
+    private void populateFieldsForAddToList () {
+        String selectedType = getIntent().getStringExtra("TYPE");
+        type.setText(selectedType);
+        type.setEnabled(false);
     }
 
 }
