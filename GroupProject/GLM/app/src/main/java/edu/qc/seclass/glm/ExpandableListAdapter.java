@@ -170,6 +170,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                                 Toast.makeText(mainActivity, "Editing List Name", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.pm_deleteList:
+                                String listType = listDataHeader.remove(groupPosition).getType();
+                                MainActivity.db.reminderTypeDao().deleteAllOfType(listType);
+                                notifyDataSetChanged();
                                 Toast.makeText(mainActivity, "List Deleted", Toast.LENGTH_SHORT).show();
                                 return true;
                         }

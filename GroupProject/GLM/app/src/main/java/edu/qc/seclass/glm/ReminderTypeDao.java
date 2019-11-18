@@ -19,4 +19,7 @@ public interface ReminderTypeDao {
     @Query("DELETE FROM type_table")
     void deleteAll();
 
+    @Query("DELETE FROM type_table WHERE type = :type")
+    void deleteAllOfType(String type);
+
 }

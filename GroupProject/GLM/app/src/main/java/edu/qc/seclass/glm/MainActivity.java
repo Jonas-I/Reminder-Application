@@ -66,21 +66,6 @@ public class MainActivity extends AppCompatActivity{
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
-        //DialogFragment timePicker = new TimePickerFragment();
-        //timePicker.show(getSupportFragmentManager(), "time picker");
-
-//        EditText searchInput = (EditText) findViewById(R.id.searchInput);
-//
-//        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if (event.getAction() == KeyEvent.KEYCODE_ENTER) {
-//                    listAdapter.filter(v.getText().toString());
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
         SearchManager sm = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) findViewById(R.id.searchInput);
         search.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
@@ -259,4 +244,5 @@ public class MainActivity extends AppCompatActivity{
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         notificationId++;
     }
+
 }
