@@ -13,22 +13,19 @@ public class AlertTest {
     private Alert alert;
     private Alert alertRepeat;
     private Date date;
-    private String message;
-    private Repeat repeat;
+    private String repeat;
 
     @Before
     public void setUp() throws Exception {
         date = new Date();
-        message = "Doctor's Appointment at 3PM";
-        repeat = Repeat.NEVER;
-        alert = new Alert(date, message);
-        alertRepeat = new Alert(date, message, repeat);
+        repeat = "Never";
+        alert = new Alert(date);
+        alertRepeat = new Alert(date, repeat);
     }
 
     @After
     public void tearDown() throws Exception {
         date = null;
-        message = null;
         alert = null;
         repeat = null;
         alertRepeat = null;
@@ -59,28 +56,6 @@ public class AlertTest {
     }
 
     @Test
-    public void getMessage() {
-        assertEquals("Doctor's Appointment at 3PM", alert.getMessage());
-    }
-
-    @Test
-    public void getMessage2() {
-        assertEquals("Doctor's Appointment at 3PM", alertRepeat.getMessage());
-    }
-
-    @Test
-    public void setMessage() {
-        alert.setMessage("Test Kojo at 6PM about project");
-        assertEquals("Test Kojo at 6PM about project", alert.getMessage());
-    }
-
-    @Test
-    public void setMessage2() {
-        alertRepeat.setMessage("Test Kojo at 6PM about project");
-        assertEquals("Test Kojo at 6PM about project", alertRepeat.getMessage());
-    }
-
-    @Test
     public void getRepeat() {
         assertEquals(repeat, alert.getRepeat());
     }
@@ -92,14 +67,14 @@ public class AlertTest {
 
     @Test
     public void setRepeat() {
-        repeat = Repeat.WEEKLY;
+        repeat = "Weekly";
         alert.setRepeat(repeat);
         assertEquals(repeat, alert.getRepeat());
     }
 
     @Test
     public void setRepeat2() {
-        repeat = Repeat.WEEKLY;
+        repeat = "Weekly";
         alertRepeat.setRepeat(repeat);
         assertEquals(repeat, alertRepeat.getRepeat());
     }
