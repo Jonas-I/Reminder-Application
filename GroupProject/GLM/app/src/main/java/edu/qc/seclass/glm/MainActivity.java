@@ -140,17 +140,9 @@ public class MainActivity extends AppCompatActivity{
             String typeString = data.getStringExtra("TYPE");
             ReminderType type = new ReminderType(typeString);
             Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
-            Reminder newReminder;
-            if (remCal != null) {
-                Date remDate = remCal.getTime();
-                String repeat = data.getStringExtra("REPEAT");
-                Alert alert = new Alert(remDate,repeat);
-                db.alertDao().insert(alert);
-                newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
-                Calendar alertTime = Calendar.getInstance();
-                alertTime.setTime(alert.getAlertTime());
-                startAlarm(alertTime, newReminder, repeat);// TODO: DANIEL - add repeat
-            }
+            Reminder newReminder = null;
+            if (remCal != null)
+                createAlert(remCal,data,newReminder,descString,type, requestCode);
             else newReminder = new Reminder(descString, type.getType());
             db.reminderTypeDao().insert(type);
             db.reminderDao().insert(newReminder);
@@ -166,14 +158,17 @@ public class MainActivity extends AppCompatActivity{
                 listAdapter.notifyDataSetChanged();
             }
         }
-        else if (requestCode == 2) {
-            if (resultCode == 1) { // Return from Edit activity
+        else if (requestCode == EDIT_REMINDER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) { // Return from Edit activity
                 Reminder createdReminder = data.getParcelableExtra("NEW_REMINDER");
                 int list = data.getIntExtra("LIST", 0);
                 int child = data.getIntExtra("REMINDER", 0);
                 String reminderID = createdReminder.getReminderID();
                 String desc = createdReminder.getDescription();
                 db.reminderDao().updateReminderDescription(reminderID, desc);
+                Calendar remCal = (Calendar)data.getSerializableExtra("REMINDER_CALENDAR");
+                if (remCal != null)
+                    createdReminder = createAlert(remCal, data, createdReminder, desc, new ReminderType(createdReminder.getType()), requestCode);
                 listDataHeader.get(list).set(child, createdReminder);
                 listAdapter.notifyDataSetChanged();
             }
@@ -263,4 +258,25 @@ public class MainActivity extends AppCompatActivity{
         notificationId++;
     }
 
+    private Reminder createAlert (Calendar remCal, Intent data, Reminder newReminder, String descString, ReminderType type, int requestCode) {
+        Date remDate = remCal.getTime();
+        String repeat = data.getStringExtra("REPEAT");
+        Alert alert = new Alert(remDate,repeat);
+        if (requestCode == 2) {
+            Alert oldAlert = MainActivity.db.alertDao().getAlertByID(newReminder.getAlertID());
+            if (oldAlert == null || !alert.equals(oldAlert))
+                db.alertDao().insert(alert);
+            else return newReminder;
+        }
+        else db.alertDao().insert(alert);
+        db.reminderDao().deleteReminderbyID(newReminder.getReminderID());
+        boolean checked = newReminder.isChecked();
+        newReminder = new Reminder(descString, type.getType(), alert.getAlertID());
+        newReminder.setChecked(checked);
+        db.reminderDao().insert(newReminder);
+        Calendar alertTime = Calendar.getInstance();
+        alertTime.setTime(alert.getAlertTime());
+        startAlarm(alertTime, newReminder, repeat);
+        return newReminder;
+    }
 }

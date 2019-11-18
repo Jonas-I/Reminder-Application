@@ -46,7 +46,7 @@ public class CreateReminderActivity extends Activity {
                 finish();
             }
         });
-        int request = getIntent().getIntExtra("REQUEST_CODE",1);
+        final int request = getIntent().getIntExtra("REQUEST_CODE",1);
         if (request == 2) {
             selectedReminder = getIntent().getParcelableExtra("SELECTED_REMINDER");
             populateFields();
@@ -68,6 +68,14 @@ public class CreateReminderActivity extends Activity {
                     Button repeatButton = findViewById(R.id.inputRepeatButton);
                     String repeat = repeatButton.getText().toString();
                     intent.putExtra("REPEAT", repeat);
+                    if (request == 2) {
+                        selectedReminder.setDescription(descString);
+                        intent.putExtra("NEW_REMINDER", selectedReminder);
+                        int list = getIntent().getIntExtra("LIST", 0);
+                        int child = getIntent().getIntExtra("REMINDER", 0);
+                        intent.putExtra("LIST", list);
+                        intent.putExtra("REMINDER", child);
+                    }
                     finish();//finishing activity
                 }
                 else {

@@ -61,4 +61,11 @@ public class Alert implements Serializable {
     public void setRepeat(String repeat) {
         this.repeat = repeat;
     }
+
+    @Override
+    public boolean equals (Object other) {
+        Alert otherAlert = (Alert) other;
+        return this.alertTime.equals(otherAlert.getAlertTime()) &&
+                this.repeat.equals(((Alert) other).getRepeat());
+    }
 }
