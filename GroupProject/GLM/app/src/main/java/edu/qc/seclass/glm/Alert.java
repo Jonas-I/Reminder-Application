@@ -18,7 +18,7 @@ public class Alert implements Serializable {
     @ColumnInfo(name = "alert_id")
     private String alertID;
 
-    @ColumnInfo(name = "time")
+    @ColumnInfo(name = "timeBtn")
     private Date alertTime;
 
     @ColumnInfo(name = "repeat")

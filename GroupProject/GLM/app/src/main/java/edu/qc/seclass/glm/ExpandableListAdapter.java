@@ -197,6 +197,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     intent.putExtra("SELECTED_REMINDER", selectedReminder);
                     intent.putExtra("LIST", groupPosition);
                     intent.putExtra("REMINDER",childPosition);
+                    intent.putExtra("REQUEST_CODE",2);
                     mainActivity.startActivityForResult(intent,2);
                 }
             }
