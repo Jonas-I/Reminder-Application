@@ -18,6 +18,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
@@ -138,7 +139,8 @@ public class MainActivityTest {
         onView(withId(R.id.createReminderDone)).perform(click());
 
         onView(allOf(withId(R.id.remListTitle), withText(startsWith("Test")))).perform(click());
-        onView(allOf(withId(R.id.remItemName), withText(startsWith("Test Reminder")))).perform(click());
+        onView(allOf(withId(R.id.btnDelete), hasSibling(withText("Test Reminder")))).perform(click());
+        onView(allOf(withId(R.id.remItemName), withText("Test Reminder"), withParent(withText("Test")))).check(doesNotExist());
     }
 
     @Test
@@ -150,5 +152,6 @@ public class MainActivityTest {
 
         onView(allOf(withId(R.id.listButton), hasSibling(withText("Test")))).perform(click());
         onView(withText("Delete List")).perform(click());
+        onView(allOf(withId(R.id.remListTitle), (withText("Test")))).check(doesNotExist());
     }
 }
