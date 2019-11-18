@@ -1,0 +1,60 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2509
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Light;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww12620\viewh14480\viewkind0
+\deftab720
+\pard\tx9364\pardeftab720\ri-4130\sl360\slmult1\sa160\partightenfactor0
+
+\f0\fs24 \cf0 ##### Nana Kodjo Acquah - Asare\
+##### CS370 Reminder App Info\
+###### Requirement Information:\
+\pard\pardeftab720\partightenfactor0
+\cf0 1.A list consisting of reminders the users want to be aware of. The application must allow\
+users to add reminders to a list, delete reminders from a list, and edit the reminders in\
+the list.\
+*I created a ReminderList class that will create some sort of data structure(ArrayList) to hold reminders in a list with the ability to add/delete/edit and update the Reminders\
+\
+\
+2.The application must contain a database (DB) of reminders and corresponding data.\
+*	Created a Database that will hold all Users/ Reminders and ReminderList\
+\
+\
+3.Users must be able to add reminders to a list by picking them from a hierarchical list,\
+where the first level is the reminder type (e.g., Appointment), and the second level is the\
+name of the actual reminder (e.g., Dentist Appointment).\
+*	I also created a sub priority class that will enable me to prioritize my reminders according to user preference\
+\
+4.Users must also be able to specify a reminder by typing its name. In this case, the\
+application must look in its DB for reminders with similar names and ask the user\
+whether that is the item they intended to add. If a match (or nearby match) cannot be\
+found, the application must ask the user to select a reminder type for the reminder, or\
+add a new one, and then save the new reminder, together with its type, in the DB.\
+*	I added typing name in Operations of \'93User\'94 and then reminder suggestion etc. in operations of \'93Reminder\'94 class. Asking the user is again added as operation is \'93Reminder\'94 class. The add , save reminder is operations of \'93User\'94 class\
+	\
+5.The reminders must be saved automatically and immediately after they are modified.\
+*	The association between \'93Reminder\'94 and \'93Database\'94 class depicts this requirement.\
+	\
+6.Users must be able to check off reminders in the list (without deleting them).\
+*	This requirement was added to User Class\
+	\
+7.Users must also be able to clear all the check-off marks in the reminder list at once.\
+*	Also a part of the User Class\
+\
+8.Check-off marks for the reminder list are persistent and must also be saved immediately.\
+*	\
+	\
+9.The application must present the reminders grouped by type.\
+*	Is in the ReminderList class\
+	\
+10.The application must support multiple reminder lists at a time (e.g., \'93Weekly\'94, \'93Monthly\'94,\
+\'93Kid\'92s Reminders\'94). Therefore, the application must provide the users with the ability to\
+create, (re)name, select, and delete reminder lists.\
+*	\
+	\
+11.The application should have the option to set up reminders with day and time alert. If this\
+option is selected allow option to repeat the behavior.\
+*	\
+	\
+12.Extra Credit Option to set up reminder based on location.\
+*	I tried to setup this functionality but not sure.  i created a function in the reminder class called byLocation(), which will set a default Reminder when say you get home turn on the lights}

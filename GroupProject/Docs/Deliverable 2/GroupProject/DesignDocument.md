@@ -1,30 +1,28 @@
 # Design Document
 
-**Author**: Torendra Rasik, Jonas Improgo
+*This is the template for your design document. The parts in italics are concise explanations of what should go in the corresponding sections and should not appear in the final document.*
+
+**Author**: Torendra Rasik
 
 ## 1 Design Considerations
 
+*The subsections below describe the issues that need to be addressed or resolved prior to or while completing the design, as well as issues that may influence the design process.*
+
 ### 1.1 Assumptions
 
-- The user is using an Android device.
-- The Android devices has a built-in database, SQLite.
-- The system is implemented using only the Java programming language on Android Studio.
-- The requirements of the project is concrete and will not change.
+*Describe any assumption, background, or dependencies of the software, its use, the operational environment, or significant project issues.*
 
 ### 1.2 Constraints
 
-- The system is meant to fulfill the requirements of the project and may not include any extra features outside of the requirements.
-- The time frame of the project is limited to the deadline of November 18, 2019.
+*Describe any constraints on the system that have a significant impact on the design of the system.*
 
 ### 1.3 System Environment
 
-- The system is designed to work only on Android operating systems.
+*Describe the hardware and software that the system must operate in and interact with.*
 
 ## 2 Architectural Design
 
-- In our Architectural approach, we will be using an Event Driven Architecture (EDA) where certain activities or actions will change the state of the application.
-For example, if the User was to press the Create button within the Main Activity the state of the application would change to the Create Reminder/List Activity. This approach seemed the best for our use because most Android Applications are based off a EDA where the state is constantly changing. 
-- We will also be using a Data-centric approach within our Application, because a database is essential to the functionality of our Application. The data entered within the Application will be persisted throughout the lifecycle of the Application even when it is destroyed, so the data must be saved in that event/state. The database itself is contructed through a variation of tables that consist of primary and foreign keys that provide constraints so the data inserted is unique and correct. 
+*The architecture provides the high-level design view of a system and provides a basis for more detailed design work. These subsections describe the top-level components of the system you are building and their relationships.*
 
 ### 2.1 Component Diagram
 
@@ -36,11 +34,12 @@ For example, if the User was to press the Create button within the Main Activity
 
 ## 3 Low-Level Design
 
-### User
+*Describe the low-level design for each of the system components identified in the previous section. For each component, you should provide details in the following UML diagrams to show its internal structure.*
+
+### Reminder Manager
 - This component accesses the data in the Reminder component in order to provide management instructions for the User.
 - It provides the functionality for the User in order to create, delete and edit ReminderLists. It also allows Users to create, delete, select, and re(name) their Reminders.
 - This component also allows for Reminders to be saved through the database automatically.
-- Within our design, this component is controlled through a Expandable List View and Adapter that has access from all the classes used in manipulating Reminders, Reminder Types, Alerts, etc. 
 
 ### Reminder
 - This component provides the interface that is needed in order for the Reminder Manager to work.
@@ -52,9 +51,6 @@ For example, if the User was to press the Create button within the Main Activity
 - This component provides an interface for the Reminders Component
 - It allows for data access of the User's location, geolocation, and time 
 - It's an on demand system that needs no development as it exists already on the Android Operating System.
-- In our design, we decided to use the Broadcast Reciever already implemented within the Android OS to control when the User will recieve an Alert based on their input which is saved in the database.
-- The Broadcast Reciever is also used in notifying the User on their device at the correct time that they wanted their reminder to notify them.
-- The Dialog fragment was used in order to set the time the user wanted to by notified for a Reminder.
 
 ### Persistence
 - This component provides an interface for the Reminders Component
@@ -73,6 +69,4 @@ For example, if the User was to press the Create button within the Main Activity
 - There is no need for other diagrams as this is a simple application. It has basic functionality of managing Reminders which is shown through the use of the Class Diagram, Use Case Model, and Component diagram. These three diagrams provide more than enough information in order to plan out the construction of the Application.
 
 ## 4 User Interface Design
-![](Design-Team/images/UserInterface_1.png)
-
-![](Design-Team/images/UserInterface_2.png)
+*For GUI-based systems, this section should provide the specific format/layout of the user interface of the system (e.g., in the form of graphical mockups).*
