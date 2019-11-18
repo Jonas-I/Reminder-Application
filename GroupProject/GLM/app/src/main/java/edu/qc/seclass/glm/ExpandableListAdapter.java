@@ -238,43 +238,43 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return tagCheckedItems;
     }
 
-    public void filter(String query) {
-        // TODO: Current Problem -> ChildViews not displaying, however, the query displays anything shown in the ReminderList (Parent) and/or the Reminder (Child).
-        // Only the child views are not showing.
-        query = query.toLowerCase();
-        Log.v("ExpandableListAdapter", String.valueOf(listDataHeader.size()));
-        listDataHeader.clear();
-
-        if (query.isEmpty()) {
-            listDataHeader.addAll(original);
-            Log.v("ExpandableListAdapter", "LOG: 2");
-        } else {
-            for (ReminderList reminderList: original) {
-                ArrayList<Reminder> mainList = new ArrayList<>();
-                mainList.addAll(reminderList);//reminderList.getReminderList(); // nothing in this list ?
-                Log.v("ExpandableListAdapter", "" + mainList.isEmpty());
-
-                ArrayList<Reminder> newList = new ArrayList<>();
-                Log.v("ExpandableListAdapter", "LOG: 1");
-
-                for (Reminder reminder: mainList) {
-                    if (reminder.getDescription().toLowerCase().contains(query) ||
-                            reminder.getReminderID().toLowerCase().contains(query) ||
-                            reminder.getType().toLowerCase().contains(query)) {
-                        newList.add(reminder);
-                        Log.v("ExpandableListAdapter", "QUERY: " + query);
-
-                    }
-                }
-                if (newList.size() > 0) {
-                    ReminderList nReminderList = new ReminderList(reminderList.getType());
-                    listDataHeader.add(nReminderList);
-                    Log.v("ExpandableListAdapter", "LOG: 3 -> " + reminderList.getType());
-                }
-            }
-        }
-        Log.v("ExpandableListAdapter", String.valueOf(listDataHeader.size()));
-        notifyDataSetChanged();
-
-    }
+//    public void filter(String query) {
+//        // TODO: Current Problem -> ChildViews not displaying, however, the query displays anything shown in the ReminderList (Parent) and/or the Reminder (Child).
+//        // Only the child views are not showing.
+//        query = query.toLowerCase();
+//        Log.v("ExpandableListAdapter", String.valueOf(listDataHeader.size()));
+//        listDataHeader.clear();
+//
+//        if (query.isEmpty()) {
+//            listDataHeader.addAll(original);
+//            Log.v("ExpandableListAdapter", "LOG: 2");
+//        } else {
+//            for (ReminderList reminderList: original) {
+//                ArrayList<Reminder> mainList = new ArrayList<>();
+//                mainList.addAll(reminderList);//reminderList.getReminderList(); // nothing in this list ?
+//                Log.v("ExpandableListAdapter", "" + mainList.isEmpty());
+//
+//                ArrayList<Reminder> newList = new ArrayList<>();
+//                Log.v("ExpandableListAdapter", "LOG: 1");
+//
+//                for (Reminder reminder: mainList) {
+//                    if (reminder.getDescription().toLowerCase().contains(query) ||
+//                            reminder.getReminderID().toLowerCase().contains(query) ||
+//                            reminder.getType().toLowerCase().contains(query)) {
+//                        newList.add(reminder);
+//                        Log.v("ExpandableListAdapter", "QUERY: " + query);
+//
+//                    }
+//                }
+//                if (newList.size() > 0) {
+//                    ReminderList nReminderList = new ReminderList(reminderList.getType());
+//                    listDataHeader.add(nReminderList);
+//                    Log.v("ExpandableListAdapter", "LOG: 3 -> " + reminderList.getType());
+//                }
+//            }
+//        }
+//        Log.v("ExpandableListAdapter", String.valueOf(listDataHeader.size()));
+//        notifyDataSetChanged();
+//
+//    }
 }

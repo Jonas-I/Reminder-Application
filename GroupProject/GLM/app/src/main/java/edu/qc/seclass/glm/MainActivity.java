@@ -67,32 +67,32 @@ public class MainActivity extends AppCompatActivity{
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
-        SearchManager sm = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView search = (SearchView) findViewById(R.id.searchInput);
-        search.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
-        search.setIconifiedByDefault(false);
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                listAdapter.filter(query);
-                expandAll();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                listAdapter.filter(newText);
-                expandAll();
-                return false;
-            }
-        });
-        search.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                listAdapter.filter("");
-                return false;
-            }
-        });
+//        SearchManager sm = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView search = (SearchView) findViewById(R.id.searchInput);
+//        search.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
+//        search.setIconifiedByDefault(false);
+//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                listAdapter.filter(query);
+//                expandAll();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                listAdapter.filter(newText);
+//                expandAll();
+//                return false;
+//            }
+//        });
+//        search.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                listAdapter.filter("");
+//                return false;
+//            }
+//        });
 
         if (!areNotificationsEnabled) {
             // Because the user took an action to create a notification, we create a prompt to let
@@ -210,12 +210,12 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void expandAll() {
-        int s = listAdapter.getGroupCount();
-        for (int i = 0; i < s; i++) {
-            listView.expandGroup(i);
-        }
-    }
+//    public void expandAll() {
+//        int s = listAdapter.getGroupCount();
+//        for (int i = 0; i < s; i++) {
+//            listView.expandGroup(i);
+//        }
+//    }
 
     static int notificationId = 0;
 
