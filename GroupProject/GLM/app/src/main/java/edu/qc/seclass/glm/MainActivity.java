@@ -5,7 +5,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -68,32 +66,6 @@ public class MainActivity extends AppCompatActivity{
         listView.setAdapter(listAdapter);
         mNotificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         boolean areNotificationsEnabled = mNotificationManagerCompat.areNotificationsEnabled();
-//        SearchManager sm = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView search = (SearchView) findViewById(R.id.searchInput);
-//        search.setSearchableInfo(sm.getSearchableInfo(getComponentName()));
-//        search.setIconifiedByDefault(false);
-//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                listAdapter.filter(query);
-//                expandAll();
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                listAdapter.filter(newText);
-//                expandAll();
-//                return false;
-//            }
-//        });
-//        search.setOnCloseListener(new SearchView.OnCloseListener() {
-//            @Override
-//            public boolean onClose() {
-//                listAdapter.filter("");
-//                return false;
-//            }
-//        });
 
         if (!areNotificationsEnabled) {
             // Because the user took an action to create a notification, we create a prompt to let
