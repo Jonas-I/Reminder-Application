@@ -51,6 +51,7 @@ public class CreateReminderActivity extends Activity {
             }
         });
         if (request == 2) {
+            type.setEnabled(false);
             selectedReminder = getIntent().getParcelableExtra("SELECTED_REMINDER");
             String alertId = selectedReminder.getAlertID();
             if (alertId != null) {
